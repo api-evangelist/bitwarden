@@ -7,30 +7,69 @@ created: '2026-05-08'
 modified: '2026-05-08'
 reconciled: false
 tags:
-- Security
-- Password Manager
-- Open Source
-- Vault
-- Identity
-- Rate Limiting
-- Quotas
-- Throttling
-description: Placeholder rate-limit artifact for Bitwarden. Replace with real limits once the pipeline
-  researches the provider's rate-limit documentation.
-notes: Initial scaffold — limits have not yet been reconciled against the provider's documentation.
+  - Security
+  - Password Manager
+  - Open Source
+  - Vault
+  - Identity
+  - Rate Limiting
+  - Throttling
+description: >-
+  Bitwarden documents that its Public API throttles abusive traffic and returns 429
+  Too Many Requests when the API is hit too quickly. Numeric per-second ceilings are
+  not exhaustively published. List endpoints exceeding 50 results return a
+  continuationToken for pagination. Identity tokens issued via client_credentials are
+  valid for 3600 seconds and should be reused rather than reissued on every call. Two
+  cloud regions exist - api.bitwarden.com (US) and api.bitwarden.eu (EU) - each with
+  its own identity host.
 sources:
-- https://bitwarden.com/
+  - https://bitwarden.com/help/public-api/
+  - https://bitwarden.com/help/event-logs/
 responseCodes:
   throttled: 429
+  unauthorized: 401
 limits:
-- name: Default
-  scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+  - name: Public API Throttle
+    scope: client
+    metric: requests
+    limit: dynamic
+    timeFrame: minute
+    notes: >-
+      Bitwarden returns 429 Too Many Requests when the Public API is called too
+      rapidly. Numeric ceiling is not published.
+  - name: Pagination Window
+    scope: list_endpoint
+    metric: items
+    limit: 50
+    timeFrame: page
+    notes: >-
+      Lists exceeding 50 results return a continuationToken; clients must page using
+      the token to retrieve the full result set.
+  - name: Identity Token Validity
+    scope: token
+    metric: seconds
+    limit: 3600
+    timeFrame: token_lifetime
+    notes: >-
+      Bearer tokens issued from /connect/token are valid for 3600 seconds; reuse the
+      token until expiry rather than re-issuing per request.
 policies:
-- name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+  - name: 429 Throttling
+    description: >-
+      When throughput is excessive the Public API returns 429 Too Many Requests.
+      Clients should back off before retrying.
+  - name: Token Reuse
+    description: >-
+      Cache the bearer token for its 3600-second lifetime. Re-issuing per call wastes
+      identity quota and risks rate limiting on /connect/token.
+  - name: Continuation Pagination
+    description: >-
+      Use continuationToken to walk lists exceeding 50 results; do not synthesise
+      offsets.
+  - name: Regional Selection
+    description: >-
+      Use api.bitwarden.com / identity.bitwarden.com for US tenants and
+      api.bitwarden.eu / identity.bitwarden.eu for EU tenants.
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
