@@ -31,6 +31,8 @@ apis:
     properties:
       - type: Documentation
         url: https://bitwarden.com/help/api/
+      - type: OpenAPI
+        url: openapi/bitwarden-public-swagger.json
   - aid: bitwarden:public-groups
     name: Bitwarden Public API - Groups
     description: >-
@@ -46,6 +48,8 @@ apis:
     properties:
       - type: Documentation
         url: https://bitwarden.com/help/api/#tag/Groups
+      - type: OpenAPI
+        url: openapi/bitwarden-public-swagger.json
   - aid: bitwarden:public-collections
     name: Bitwarden Public API - Collections
     description: >-
@@ -61,6 +65,8 @@ apis:
     properties:
       - type: Documentation
         url: https://bitwarden.com/help/api/#tag/Collections
+      - type: OpenAPI
+        url: openapi/bitwarden-public-swagger.json
   - aid: bitwarden:public-policies
     name: Bitwarden Public API - Policies
     description: >-
@@ -76,6 +82,8 @@ apis:
     properties:
       - type: Documentation
         url: https://bitwarden.com/help/api/#tag/Policies
+      - type: OpenAPI
+        url: openapi/bitwarden-public-swagger.json
   - aid: bitwarden:public-events
     name: Bitwarden Public API - Event Logs
     description: >-
@@ -92,6 +100,8 @@ apis:
     properties:
       - type: Documentation
         url: https://bitwarden.com/help/event-logs/
+      - type: OpenAPI
+        url: openapi/bitwarden-public-swagger.json
   - aid: bitwarden:identity
     name: Bitwarden Identity API
     description: >-
