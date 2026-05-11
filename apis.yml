@@ -176,6 +176,10 @@ common:
     url: rate-limits/bitwarden-rate-limits.yml
   - type: FinOps
     url: finops/bitwarden-finops.yml
+  - type: Integrations
+    url: https://bitwarden.com/integrations/
+integrations:
+  - name: Become a tech partner
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
