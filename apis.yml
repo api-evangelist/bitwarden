@@ -1,7 +1,7 @@
 aid: bitwarden
 url: https://raw.githubusercontent.com/api-evangelist/bitwarden/refs/heads/main/apis.yml
 name: Bitwarden
-x-type: company
+kind: company
 description: >-
   Bitwarden is an open-source password and secret management platform. The Bitwarden Public API exposes organization-level resources - members, groups, collections, policies, and event logs - plus a separate Vault Management API for personal vault items, an Identity (OAuth2) endpoint for token issuance, a SCIM endpoint for directory-based provisioning, and the Secrets Manager API for application secrets.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
