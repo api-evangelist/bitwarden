@@ -1,0 +1,166 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bitwarden Public API — Policies
+  description: 'Bitwarden Public API — Policies. 3 operations. Lead operation: List all policies.. Self-contained Naftiko
+    capability covering one Bitwarden business surface.'
+  tags:
+  - Bitwarden
+  - Policies
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BITWARDEN_API_KEY: BITWARDEN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: public-swagger-policies
+    baseUri: https://api.bitwarden.com
+    description: Bitwarden Public API — Policies business capability. Self-contained, no shared references.
+    resources:
+    - name: public-policies
+      path: /public/policies
+      operations:
+      - name: get
+        method: GET
+        description: List all policies.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: public-policies-id
+      path: /public/policies/{id}
+      operations:
+      - name: put
+        method: PUT
+        description: Update a policy.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: The type of policy to be updated.
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: public-policies-type
+      path: /public/policies/{type}
+      operations:
+      - name: get
+        method: GET
+        description: Retrieve a policy.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: path
+          type: string
+          description: The type of policy to be retrieved.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BITWARDEN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: public-swagger-policies-rest
+    port: 8080
+    description: REST adapter for Bitwarden Public API — Policies. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/public/policies
+      name: public-policies
+      description: REST surface for public-policies.
+      operations:
+      - method: GET
+        name: get
+        description: List all policies.
+        call: public-swagger-policies.get
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/public/policies/{id}
+      name: public-policies-id
+      description: REST surface for public-policies-id.
+      operations:
+      - method: PUT
+        name: put
+        description: Update a policy.
+        call: public-swagger-policies.put
+        with:
+          type: rest.type
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/public/policies/{type}
+      name: public-policies-type
+      description: REST surface for public-policies-type.
+      operations:
+      - method: GET
+        name: get
+        description: Retrieve a policy.
+        call: public-swagger-policies.get
+        with:
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: public-swagger-policies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bitwarden Public API — Policies. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-policies
+      description: List all policies.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: public-swagger-policies.get
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-policy
+      description: Update a policy.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: public-swagger-policies.put
+      with:
+        type: tools.type
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-policy
+      description: Retrieve a policy.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: public-swagger-policies.get
+      with:
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.

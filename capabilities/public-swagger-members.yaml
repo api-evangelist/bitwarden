@@ -1,0 +1,350 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bitwarden Public API — Members
+  description: 'Bitwarden Public API — Members. 8 operations. Lead operation: List all members.. Self-contained Naftiko capability
+    covering one Bitwarden business surface.'
+  tags:
+  - Bitwarden
+  - Members
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BITWARDEN_API_KEY: BITWARDEN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: public-swagger-members
+    baseUri: https://api.bitwarden.com
+    description: Bitwarden Public API — Members business capability. Self-contained, no shared references.
+    resources:
+    - name: public-members
+      path: /public/members
+      operations:
+      - name: get
+        method: GET
+        description: List all members.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: post
+        method: POST
+        description: Create a member.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: public-members-id
+      path: /public/members/{id}
+      operations:
+      - name: get
+        method: GET
+        description: Retrieve a member.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The identifier of the member to be retrieved.
+          required: true
+      - name: put
+        method: PUT
+        description: Update a member.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The identifier of the member to be updated.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: delete
+        method: DELETE
+        description: Delete a member.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The identifier of the member to be deleted.
+          required: true
+    - name: public-members-id-group-ids
+      path: /public/members/{id}/group-ids
+      operations:
+      - name: get
+        method: GET
+        description: Retrieve a member's group ids
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The identifier of the member to be retrieved.
+          required: true
+      - name: put
+        method: PUT
+        description: Update a member's groups.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The identifier of the member to be updated.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: public-members-id-reinvite
+      path: /public/members/{id}/reinvite
+      operations:
+      - name: post
+        method: POST
+        description: Re-invite a member.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The identifier of the member to re-invite.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.BITWARDEN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: public-swagger-members-rest
+    port: 8080
+    description: REST adapter for Bitwarden Public API — Members. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/public/members
+      name: public-members
+      description: REST surface for public-members.
+      operations:
+      - method: GET
+        name: get
+        description: List all members.
+        call: public-swagger-members.get
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post
+        description: Create a member.
+        call: public-swagger-members.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/public/members/{id}
+      name: public-members-id
+      description: REST surface for public-members-id.
+      operations:
+      - method: GET
+        name: get
+        description: Retrieve a member.
+        call: public-swagger-members.get
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: put
+        description: Update a member.
+        call: public-swagger-members.put
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete a member.
+        call: public-swagger-members.delete
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/public/members/{id}/group-ids
+      name: public-members-id-group-ids
+      description: REST surface for public-members-id-group-ids.
+      operations:
+      - method: GET
+        name: get
+        description: Retrieve a member's group ids
+        call: public-swagger-members.get
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: put
+        description: Update a member's groups.
+        call: public-swagger-members.put
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/public/members/{id}/reinvite
+      name: public-members-id-reinvite
+      description: REST surface for public-members-id-reinvite.
+      operations:
+      - method: POST
+        name: post
+        description: Re-invite a member.
+        call: public-swagger-members.post
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: public-swagger-members-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bitwarden Public API — Members. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-members
+      description: List all members.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: public-swagger-members.get
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-member
+      description: Create a member.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: public-swagger-members.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-member
+      description: Retrieve a member.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: public-swagger-members.get
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-member
+      description: Update a member.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: public-swagger-members.put
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-member
+      description: Delete a member.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: public-swagger-members.delete
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-member-s-group-ids
+      description: Retrieve a member's group ids
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: public-swagger-members.get
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-member-s-groups
+      description: Update a member's groups.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: public-swagger-members.put
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: re-invite-member
+      description: Re-invite a member.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: public-swagger-members.post
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

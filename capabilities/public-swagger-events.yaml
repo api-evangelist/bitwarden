@@ -1,0 +1,103 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bitwarden Public API — Events
+  description: 'Bitwarden Public API — Events. 1 operations. Lead operation: List all events.. Self-contained Naftiko capability
+    covering one Bitwarden business surface.'
+  tags:
+  - Bitwarden
+  - Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BITWARDEN_API_KEY: BITWARDEN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: public-swagger-events
+    baseUri: https://api.bitwarden.com
+    description: Bitwarden Public API — Events business capability. Self-contained, no shared references.
+    resources:
+    - name: public-events
+      path: /public/events
+      operations:
+      - name: get
+        method: GET
+        description: List all events.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start
+          in: query
+          type: string
+          description: The start date. Must be less than the end date.
+        - name: end
+          in: query
+          type: string
+          description: The end date. Must be greater than the start date.
+        - name: actingUserId
+          in: query
+          type: string
+          description: The unique identifier of the user that performed the event.
+        - name: itemId
+          in: query
+          type: string
+          description: The unique identifier of the related item that the event describes.
+        - name: continuationToken
+          in: query
+          type: string
+          description: A cursor for use in pagination.
+    authentication:
+      type: bearer
+      token: '{{env.BITWARDEN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: public-swagger-events-rest
+    port: 8080
+    description: REST adapter for Bitwarden Public API — Events. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/public/events
+      name: public-events
+      description: REST surface for public-events.
+      operations:
+      - method: GET
+        name: get
+        description: List all events.
+        call: public-swagger-events.get
+        with:
+          start: rest.start
+          end: rest.end
+          actingUserId: rest.actingUserId
+          itemId: rest.itemId
+          continuationToken: rest.continuationToken
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: public-swagger-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bitwarden Public API — Events. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-events
+      description: List all events.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: public-swagger-events.get
+      with:
+        start: tools.start
+        end: tools.end
+        actingUserId: tools.actingUserId
+        itemId: tools.itemId
+        continuationToken: tools.continuationToken
+      outputParameters:
+      - type: object
+        mapping: $.

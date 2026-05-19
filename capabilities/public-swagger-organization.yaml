@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bitwarden Public API — Organization
+  description: 'Bitwarden Public API — Organization. 1 operations. Lead operation: Import members and groups.. Self-contained
+    Naftiko capability covering one Bitwarden business surface.'
+  tags:
+  - Bitwarden
+  - Organization
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BITWARDEN_API_KEY: BITWARDEN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: public-swagger-organization
+    baseUri: https://api.bitwarden.com
+    description: Bitwarden Public API — Organization business capability. Self-contained, no shared references.
+    resources:
+    - name: public-organization-import
+      path: /public/organization/import
+      operations:
+      - name: post
+        method: POST
+        description: Import members and groups.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.BITWARDEN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: public-swagger-organization-rest
+    port: 8080
+    description: REST adapter for Bitwarden Public API — Organization. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/public/organization/import
+      name: public-organization-import
+      description: REST surface for public-organization-import.
+      operations:
+      - method: POST
+        name: post
+        description: Import members and groups.
+        call: public-swagger-organization.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: public-swagger-organization-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bitwarden Public API — Organization. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: import-members-and-groups
+      description: Import members and groups.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: public-swagger-organization.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
