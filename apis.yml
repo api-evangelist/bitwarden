@@ -8,176 +8,178 @@ description: Bitwarden is an open-source password and secret management platform
   Manager API for application secrets.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-- Security
-- Password Manager
-- Open Source
-- Vault
-- Identity
-- SCIM
+  - Security
+  - Password Manager
+  - Open Source
+  - Vault
+  - Identity
+  - SCIM
 created: '2026-05-08'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: bitwarden:public-members
-  name: Bitwarden Public API - Members
-  description: Manages members of an organization (invite, list, retrieve, update permissions, reinvite, remove). Members
-    are the user-side identity that owns vault items and collection grants within an organization.
-  humanURL: https://bitwarden.com/help/api/
-  baseURL: https://api.bitwarden.com/public
-  tags:
-  - Members
-  - Users
-  - Public API
-  properties:
-  - type: Documentation
-    url: https://bitwarden.com/help/api/
-  - type: OpenAPI
-    url: openapi/bitwarden-public-swagger.json
-  - type: NaftikoCapability
-    url: capabilities/public-swagger-collections.yaml
-  - type: NaftikoCapability
-    url: capabilities/public-swagger-events.yaml
-  - type: NaftikoCapability
-    url: capabilities/public-swagger-groups.yaml
-  - type: NaftikoCapability
-    url: capabilities/public-swagger-members.yaml
-  - type: NaftikoCapability
-    url: capabilities/public-swagger-organization.yaml
-  - type: NaftikoCapability
-    url: capabilities/public-swagger-policies.yaml
-- aid: bitwarden:public-groups
-  name: Bitwarden Public API - Groups
-  description: Manages organization groups - collections of members granted shared collection access. Supports create, list,
-    retrieve, update, delete, and member-membership operations.
-  humanURL: https://bitwarden.com/help/api/#tag/Groups
-  baseURL: https://api.bitwarden.com/public
-  tags:
-  - Groups
-  - Permissions
-  - Public API
-  properties:
-  - type: Documentation
-    url: https://bitwarden.com/help/api/#tag/Groups
-  - type: OpenAPI
-    url: openapi/bitwarden-public-swagger.json
-- aid: bitwarden:public-collections
-  name: Bitwarden Public API - Collections
-  description: Manages collections (logical groupings of vault items shared with groups and members). Supports list, retrieve,
-    update assignments, and delete; create is typically handled in the client. Includes default-collection management.
-  humanURL: https://bitwarden.com/help/api/#tag/Collections
-  baseURL: https://api.bitwarden.com/public
-  tags:
-  - Collections
-  - Sharing
-  - Public API
-  properties:
-  - type: Documentation
-    url: https://bitwarden.com/help/api/#tag/Collections
-  - type: OpenAPI
-    url: openapi/bitwarden-public-swagger.json
-- aid: bitwarden:public-policies
-  name: Bitwarden Public API - Policies
-  description: Reads and updates enterprise policies (Two-Step Login, Master Password requirements, Send disable, Single Org,
-    Personal Ownership, Password Generator, etc.). Available on Enterprise.
-  humanURL: https://bitwarden.com/help/api/#tag/Policies
-  baseURL: https://api.bitwarden.com/public
-  tags:
-  - Policies
-  - Enterprise
-  - Public API
-  properties:
-  - type: Documentation
-    url: https://bitwarden.com/help/api/#tag/Policies
-  - type: OpenAPI
-    url: openapi/bitwarden-public-swagger.json
-- aid: bitwarden:public-events
-  name: Bitwarden Public API - Event Logs
-  description: Retrieves organization activity events (60+ numeric event types covering member, vault item, collection, group,
-    and policy actions). Returns paginated lists with a continuationToken; data is retained indefinitely.
-  humanURL: https://bitwarden.com/help/event-logs/
-  baseURL: https://api.bitwarden.com/public
-  tags:
-  - Events
-  - Audit Logs
-  - Compliance
-  - Public API
-  properties:
-  - type: Documentation
-    url: https://bitwarden.com/help/event-logs/
-  - type: OpenAPI
-    url: openapi/bitwarden-public-swagger.json
-- aid: bitwarden:identity
-  name: Bitwarden Identity API
-  description: OAuth2 / OpenID Connect token endpoint that issues bearer tokens for the Public API and Vault Management API.
-    Organization API keys use the client_credentials grant with scope api.organization; bearer tokens are valid for 3600 seconds.
-  humanURL: https://bitwarden.com/help/public-api/
-  baseURL: https://identity.bitwarden.com/connect/token
-  tags:
-  - Identity
-  - OAuth
-  - Authentication
-  properties:
+  - aid: bitwarden:public-members
+    name: Bitwarden Public API - Members
+    description: Manages members of an organization (invite, list, retrieve, update permissions, reinvite, remove). Members
+      are the user-side identity that owns vault items and collection grants within an organization.
+    humanURL: https://bitwarden.com/help/api/
+    baseURL: https://api.bitwarden.com/public
+    tags:
+    - Members
+    - Users
+    - Public API
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/api/
+    - type: OpenAPI
+      url: openapi/bitwarden-public-swagger.json
+    - type: NaftikoCapability
+      url: capabilities/public-swagger-collections.yaml
+    - type: NaftikoCapability
+      url: capabilities/public-swagger-events.yaml
+    - type: NaftikoCapability
+      url: capabilities/public-swagger-groups.yaml
+    - type: NaftikoCapability
+      url: capabilities/public-swagger-members.yaml
+    - type: NaftikoCapability
+      url: capabilities/public-swagger-organization.yaml
+    - type: NaftikoCapability
+      url: capabilities/public-swagger-policies.yaml
+  - aid: bitwarden:public-groups
+    name: Bitwarden Public API - Groups
+    description: Manages organization groups - collections of members granted shared collection access. Supports create, list,
+      retrieve, update, delete, and member-membership operations.
+    humanURL: https://bitwarden.com/help/api/#tag/Groups
+    baseURL: https://api.bitwarden.com/public
+    tags:
+    - Groups
+    - Permissions
+    - Public API
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/api/#tag/Groups
+    - type: OpenAPI
+      url: openapi/bitwarden-public-swagger.json
+  - aid: bitwarden:public-collections
+    name: Bitwarden Public API - Collections
+    description: Manages collections (logical groupings of vault items shared with groups and members). Supports list, retrieve,
+      update assignments, and delete; create is typically handled in the client. Includes default-collection management.
+    humanURL: https://bitwarden.com/help/api/#tag/Collections
+    baseURL: https://api.bitwarden.com/public
+    tags:
+    - Collections
+    - Sharing
+    - Public API
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/api/#tag/Collections
+    - type: OpenAPI
+      url: openapi/bitwarden-public-swagger.json
+  - aid: bitwarden:public-policies
+    name: Bitwarden Public API - Policies
+    description: Reads and updates enterprise policies (Two-Step Login, Master Password requirements, Send disable, Single Org,
+      Personal Ownership, Password Generator, etc.). Available on Enterprise.
+    humanURL: https://bitwarden.com/help/api/#tag/Policies
+    baseURL: https://api.bitwarden.com/public
+    tags:
+    - Policies
+    - Enterprise
+    - Public API
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/api/#tag/Policies
+    - type: OpenAPI
+      url: openapi/bitwarden-public-swagger.json
+  - aid: bitwarden:public-events
+    name: Bitwarden Public API - Event Logs
+    description: Retrieves organization activity events (60+ numeric event types covering member, vault item, collection, group,
+      and policy actions). Returns paginated lists with a continuationToken; data is retained indefinitely.
+    humanURL: https://bitwarden.com/help/event-logs/
+    baseURL: https://api.bitwarden.com/public
+    tags:
+    - Events
+    - Audit Logs
+    - Compliance
+    - Public API
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/event-logs/
+    - type: OpenAPI
+      url: openapi/bitwarden-public-swagger.json
+  - aid: bitwarden:identity
+    name: Bitwarden Identity API
+    description: OAuth2 / OpenID Connect token endpoint that issues bearer tokens for the Public API and Vault Management API.
+      Organization API keys use the client_credentials grant with scope api.organization; bearer tokens are valid for 3600 seconds.
+    humanURL: https://bitwarden.com/help/public-api/
+    baseURL: https://identity.bitwarden.com/connect/token
+    tags:
+    - Identity
+    - OAuth
+    - Authentication
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/public-api/
+  - aid: bitwarden:scim
+    name: Bitwarden SCIM API
+    description: SCIM 2.0 endpoint for directory-driven provisioning of users and groups (used by Okta, Entra ID, OneLogin,
+      JumpCloud, Google Workspace via SCIM). Supports automatic invite, update, and offboard flows on Teams and Enterprise.
+    humanURL: https://bitwarden.com/help/scim/
+    baseURL: https://scim.bitwarden.com/v2
+    tags:
+    - SCIM
+    - Provisioning
+    - Identity
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/scim/
+  - aid: bitwarden:vault-management
+    name: Bitwarden Vault Management API
+    description: Local Bitwarden CLI HTTP API for managing personal vault items, folders, sends, collections, organizations,
+      the generator, and miscellaneous operations. Exposed by the bw CLI in serve mode and intended for local automation rather
+      than remote access.
+    humanURL: https://bitwarden.com/help/vault-management-api/
+    baseURL: http://localhost:8087
+    tags:
+    - Vault Items
+    - CLI
+    - Local
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/vault-management-api/
+  - aid: bitwarden:secrets-manager
+    name: Bitwarden Secrets Manager API
+    description: Secrets Manager API for storing and retrieving application secrets and managing projects, service accounts,
+      secrets, and access tokens used by infrastructure and developer tooling.
+    humanURL: https://bitwarden.com/help/secrets-manager-overview/
+    baseURL: https://api.bitwarden.com
+    tags:
+    - Secrets Manager
+    - Secrets
+    - DevOps
+    properties:
+    - type: Documentation
+      url: https://bitwarden.com/help/secrets-manager-overview/
+common:
+  - type: GitHubOrganization
+    url: https://github.com/bitwarden
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/bitwarden1
+  - type: Website
+    url: https://bitwarden.com/
   - type: Documentation
     url: https://bitwarden.com/help/public-api/
-- aid: bitwarden:scim
-  name: Bitwarden SCIM API
-  description: SCIM 2.0 endpoint for directory-driven provisioning of users and groups (used by Okta, Entra ID, OneLogin,
-    JumpCloud, Google Workspace via SCIM). Supports automatic invite, update, and offboard flows on Teams and Enterprise.
-  humanURL: https://bitwarden.com/help/scim/
-  baseURL: https://scim.bitwarden.com/v2
-  tags:
-  - SCIM
-  - Provisioning
-  - Identity
-  properties:
-  - type: Documentation
-    url: https://bitwarden.com/help/scim/
-- aid: bitwarden:vault-management
-  name: Bitwarden Vault Management API
-  description: Local Bitwarden CLI HTTP API for managing personal vault items, folders, sends, collections, organizations,
-    the generator, and miscellaneous operations. Exposed by the bw CLI in serve mode and intended for local automation rather
-    than remote access.
-  humanURL: https://bitwarden.com/help/vault-management-api/
-  baseURL: http://localhost:8087
-  tags:
-  - Vault Items
-  - CLI
-  - Local
-  properties:
-  - type: Documentation
-    url: https://bitwarden.com/help/vault-management-api/
-- aid: bitwarden:secrets-manager
-  name: Bitwarden Secrets Manager API
-  description: Secrets Manager API for storing and retrieving application secrets and managing projects, service accounts,
-    secrets, and access tokens used by infrastructure and developer tooling.
-  humanURL: https://bitwarden.com/help/secrets-manager-overview/
-  baseURL: https://api.bitwarden.com
-  tags:
-  - Secrets Manager
-  - Secrets
-  - DevOps
-  properties:
-  - type: Documentation
-    url: https://bitwarden.com/help/secrets-manager-overview/
-common:
-- type: LinkedIn
-  url: https://www.linkedin.com/company/bitwarden1
-- type: Website
-  url: https://bitwarden.com/
-- type: Documentation
-  url: https://bitwarden.com/help/public-api/
-- type: APIReference
-  url: https://bitwarden.com/help/api/
-- type: Plans
-  url: plans/bitwarden-plans-pricing.yml
-- type: RateLimits
-  url: rate-limits/bitwarden-rate-limits.yml
-- type: FinOps
-  url: finops/bitwarden-finops.yml
-- type: Integrations
-  url: https://bitwarden.com/integrations/
+  - type: APIReference
+    url: https://bitwarden.com/help/api/
+  - type: Plans
+    url: plans/bitwarden-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/bitwarden-rate-limits.yml
+  - type: FinOps
+    url: finops/bitwarden-finops.yml
+  - type: Integrations
+    url: https://bitwarden.com/integrations/
 integrations:
-- name: Become a tech partner
+  - name: Become a tech partner
 maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
