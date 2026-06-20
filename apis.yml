@@ -7,7 +7,7 @@ description: >-
   organization-level resources - members, groups, collections, policies, and event logs - plus a separate Vault
   Management API for personal vault items, an Identity (OAuth2) endpoint for token issuance, a SCIM endpoint for
   directory-based provisioning, and the Secrets Manager API for application secrets.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Security
   - Password Manager
