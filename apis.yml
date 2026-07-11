@@ -160,6 +160,8 @@ apis:
       - type: Documentation
         url: https://bitwarden.com/help/secrets-manager-overview/
 common:
+  - type: OAuthScopes
+    url: scopes/bitwarden-scopes.yml
   - type: GitHubOrganization
     url: https://github.com/bitwarden
   - type: LinkedIn
@@ -178,6 +180,8 @@ common:
     url: finops/bitwarden-finops.yml
   - type: Integrations
     url: https://bitwarden.com/integrations/
+  - url: https://bitwarden.com/blog/feed.xml
+    type: Blog
 integrations:
   - name: Become a tech partner
 maintainers:
