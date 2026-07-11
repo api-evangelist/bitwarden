@@ -160,6 +160,12 @@ apis:
       - type: Documentation
         url: https://bitwarden.com/help/secrets-manager-overview/
 common:
+  - type: TrustCenter
+    url: security/bitwarden-trust-center.yml
+  - type: DomainSecurity
+    url: security/bitwarden-domain-security.yml
+  - type: Authentication
+    url: authentication/bitwarden-authentication.yml
   - type: OAuthScopes
     url: scopes/bitwarden-scopes.yml
   - type: GitHubOrganization

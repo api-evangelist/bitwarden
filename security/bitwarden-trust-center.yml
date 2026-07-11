@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://bitwarden.com/compliance/
+url: https://bitwarden.com/compliance/
+certifications:
+- SOC 2
+- GDPR
+evidence:
+- source: https://bitwarden.com/compliance/
+  keywords:
+  - soc2
+  - gdpr

@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/bitwarden-public-swagger.json
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: OAuth2 Client Credentials
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://identity.bitwarden.com/connect/token
+    scopes: 1
+  sources:
+  - openapi/bitwarden-public-swagger.json
