@@ -160,6 +160,8 @@ apis:
       - type: Documentation
         url: https://bitwarden.com/help/secrets-manager-overview/
 common:
+  - type: AgenticAccess
+    url: agentic-access/bitwarden-agentic-access.yml
   - type: TrustCenter
     url: security/bitwarden-trust-center.yml
   - type: DomainSecurity
