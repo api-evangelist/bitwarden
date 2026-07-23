@@ -1,0 +1,295 @@
+openapi: 3.0.1
+info:
+  title: Bitwarden Public Collections Policies API
+  description: The Bitwarden public APIs.
+  contact:
+    name: Bitwarden Support
+    url: https://bitwarden.com
+    email: support@bitwarden.com
+  license:
+    name: GNU Affero General Public License v3.0
+    url: https://github.com/bitwarden/server/blob/master/LICENSE.txt
+  version: latest
+servers:
+- url: https://api.bitwarden.com
+security:
+- OAuth2 Client Credentials:
+  - api.organization
+tags:
+- name: Policies
+paths:
+  /public/policies/{type}:
+    get:
+      tags:
+      - Policies
+      summary: Retrieve a policy.
+      description: Retrieves the details of a policy.
+      parameters:
+      - name: type
+        in: path
+        description: The type of policy to be retrieved.
+        required: true
+        schema:
+          $ref: '#/components/schemas/PolicyType'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+        '404':
+          description: Not Found
+  /public/policies:
+    get:
+      tags:
+      - Policies
+      summary: List all policies.
+      description: Returns a list of your organization's policies.
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PolicyResponseModelListResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponseModelListResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponseModelListResponseModel'
+  /public/policies/{id}:
+    put:
+      tags:
+      - Policies
+      summary: Update a policy.
+      description: "Updates the specified policy. If a property is not provided,\r\nthe value of the existing property will be reset."
+      parameters:
+      - name: type
+        in: query
+        description: The type of policy to be updated.
+        schema:
+          $ref: '#/components/schemas/PolicyType'
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The request model.
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateRequestModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateRequestModel'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/PolicyResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PolicyResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+        '404':
+          description: Not Found
+components:
+  schemas:
+    PolicyResponseModel:
+      required:
+      - enabled
+      - id
+      - object
+      - type
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: policy
+        id:
+          type: string
+          description: The policy's unique identifier.
+          format: uuid
+          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
+        type:
+          allOf:
+          - $ref: '#/components/schemas/PolicyType'
+          description: The type of policy.
+        enabled:
+          type: boolean
+          description: Determines if this policy is enabled and enforced.
+        data:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: false
+          description: Data for the policy.
+          nullable: true
+      additionalProperties: false
+      description: A policy.
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: "If multiple errors occurred, they are listed in dictionary. Errors related to a specific\r\nrequest parameter will include a dictionary key describing that parameter."
+          nullable: true
+      additionalProperties: false
+    PolicyUpdateRequestModel:
+      required:
+      - enabled
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Determines if this policy is enabled and enforced.
+        data:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: false
+          description: Data for the policy.
+          nullable: true
+      additionalProperties: false
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    PolicyResponseModelListResponseModel:
+      required:
+      - data
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyResponseModel'
+          description: An array containing the actual response elements, paginated by any request parameters.
+        continuationToken:
+          type: string
+          description: A cursor for use in pagination.
+          nullable: true
+      additionalProperties: false
+    GroupResponseModel:
+      required:
+      - accessAll
+      - id
+      - name
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: group
+        id:
+          type: string
+          description: The group's unique identifier.
+          format: uuid
+          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
+          description: The associated collections that this group can access.
+          nullable: true
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: The name of the group.
+          example: Development Team
+        accessAll:
+          type: boolean
+          description: "Determines if this group can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type: string
+          description: External identifier for reference or linking this group to another system, such as a user directory.
+          nullable: true
+          example: external_id_123456
+      additionalProperties: false
+      description: A user group.
+    PolicyType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+  securitySchemes:
+    OAuth2 Client Credentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://identity.bitwarden.com/connect/token
+          scopes:
+            api.organization: Organization APIs

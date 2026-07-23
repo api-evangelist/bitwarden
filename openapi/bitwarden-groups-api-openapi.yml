@@ -1,0 +1,439 @@
+openapi: 3.0.1
+info:
+  title: Bitwarden Public Collections Groups API
+  description: The Bitwarden public APIs.
+  contact:
+    name: Bitwarden Support
+    url: https://bitwarden.com
+    email: support@bitwarden.com
+  license:
+    name: GNU Affero General Public License v3.0
+    url: https://github.com/bitwarden/server/blob/master/LICENSE.txt
+  version: latest
+servers:
+- url: https://api.bitwarden.com
+security:
+- OAuth2 Client Credentials:
+  - api.organization
+tags:
+- name: Groups
+paths:
+  /public/groups/{id}:
+    get:
+      tags:
+      - Groups
+      summary: Retrieve a group.
+      description: "Retrieves the details of an existing group. You need only supply the unique group identifier\r\nthat was returned upon group creation."
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the group to be retrieved.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+        '404':
+          description: Not Found
+    put:
+      tags:
+      - Groups
+      summary: Update a group.
+      description: "Updates the specified group object. If a property is not provided,\r\nthe value of the existing property will be reset."
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the group to be updated.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The request model.
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateUpdateRequestModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateUpdateRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateUpdateRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateUpdateRequestModel'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+        '404':
+          description: Not Found
+    delete:
+      tags:
+      - Groups
+      summary: Delete a group.
+      description: Permanently deletes a group. This cannot be undone.
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the group to be deleted.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Not Found
+  /public/groups/{id}/member-ids:
+    get:
+      tags:
+      - Groups
+      summary: Retrieve a groups's member ids
+      description: "Retrieves the unique identifiers for all members that are associated with this group. You need only\r\nsupply the unique group identifier that was returned upon group creation."
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the group to be retrieved.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+                  format: uuid
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+                  format: uuid
+            text/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+                  format: uuid
+        '404':
+          description: Not Found
+    put:
+      tags:
+      - Groups
+      summary: Update a group's members.
+      description: Updates the specified group's member associations.
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the group to be updated.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The request model.
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberIdsRequestModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberIdsRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberIdsRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberIdsRequestModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+        '404':
+          description: Not Found
+  /public/groups:
+    get:
+      tags:
+      - Groups
+      summary: List all groups.
+      description: "Returns a list of your organization's groups.\r\nGroup objects listed in this call do not include information about their associated collections."
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModelListResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModelListResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModelListResponseModel'
+    post:
+      tags:
+      - Groups
+      summary: Create a group.
+      description: Creates a new group object.
+      requestBody:
+        description: The request model.
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateUpdateRequestModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateUpdateRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateUpdateRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateUpdateRequestModel'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+components:
+  schemas:
+    AssociationWithPermissionsRequestModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: "If multiple errors occurred, they are listed in dictionary. Errors related to a specific\r\nrequest parameter will include a dictionary key describing that parameter."
+          nullable: true
+      additionalProperties: false
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    GroupResponseModelListResponseModel:
+      required:
+      - data
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupResponseModel'
+          description: An array containing the actual response elements, paginated by any request parameters.
+        continuationToken:
+          type: string
+          description: A cursor for use in pagination.
+          nullable: true
+      additionalProperties: false
+    UpdateMemberIdsRequestModel:
+      type: object
+      properties:
+        memberIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: The associated member ids that have access to this object.
+          nullable: true
+      additionalProperties: false
+    GroupResponseModel:
+      required:
+      - accessAll
+      - id
+      - name
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: group
+        id:
+          type: string
+          description: The group's unique identifier.
+          format: uuid
+          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
+          description: The associated collections that this group can access.
+          nullable: true
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: The name of the group.
+          example: Development Team
+        accessAll:
+          type: boolean
+          description: "Determines if this group can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type: string
+          description: External identifier for reference or linking this group to another system, such as a user directory.
+          nullable: true
+          example: external_id_123456
+      additionalProperties: false
+      description: A user group.
+    GroupCreateUpdateRequestModel:
+      required:
+      - accessAll
+      - name
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this group can access.
+          nullable: true
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: The name of the group.
+          example: Development Team
+        accessAll:
+          type: boolean
+          description: "Determines if this group can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type: string
+          description: External identifier for reference or linking this group to another system, such as a user directory.
+          nullable: true
+          example: external_id_123456
+      additionalProperties: false
+  securitySchemes:
+    OAuth2 Client Credentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://identity.bitwarden.com/connect/token
+          scopes:
+            api.organization: Organization APIs

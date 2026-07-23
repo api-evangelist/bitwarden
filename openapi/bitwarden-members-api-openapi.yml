@@ -1,0 +1,539 @@
+openapi: 3.0.1
+info:
+  title: Bitwarden Public Collections Members API
+  description: The Bitwarden public APIs.
+  contact:
+    name: Bitwarden Support
+    url: https://bitwarden.com
+    email: support@bitwarden.com
+  license:
+    name: GNU Affero General Public License v3.0
+    url: https://github.com/bitwarden/server/blob/master/LICENSE.txt
+  version: latest
+servers:
+- url: https://api.bitwarden.com
+security:
+- OAuth2 Client Credentials:
+  - api.organization
+tags:
+- name: Members
+paths:
+  /public/members/{id}:
+    get:
+      tags:
+      - Members
+      summary: Retrieve a member.
+      description: "Retrieves the details of an existing member of the organization. You need only supply the\r\nunique member identifier that was returned upon member creation."
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the member to be retrieved.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+        '404':
+          description: Not Found
+    put:
+      tags:
+      - Members
+      summary: Update a member.
+      description: "Updates the specified member object. If a property is not provided,\r\nthe value of the existing property will be reset."
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the member to be updated.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The request model.
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MemberUpdateRequestModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberUpdateRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MemberUpdateRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MemberUpdateRequestModel'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+        '404':
+          description: Not Found
+    delete:
+      tags:
+      - Members
+      summary: Delete a member.
+      description: "Permanently deletes a member from the organization. This cannot be undone.\r\nThe user account will still remain. The user is only removed from the organization."
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the member to be deleted.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Not Found
+  /public/members/{id}/group-ids:
+    get:
+      tags:
+      - Members
+      summary: Retrieve a member's group ids
+      description: "Retrieves the unique identifiers for all groups that are associated with this member. You need only\r\nsupply the unique member identifier that was returned upon member creation."
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the member to be retrieved.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+                  format: uuid
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+                  format: uuid
+            text/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+                  format: uuid
+        '404':
+          description: Not Found
+    put:
+      tags:
+      - Members
+      summary: Update a member's groups.
+      description: Updates the specified member's group associations.
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the member to be updated.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: The request model.
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupIdsRequestModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupIdsRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupIdsRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupIdsRequestModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+        '404':
+          description: Not Found
+  /public/members:
+    get:
+      tags:
+      - Members
+      summary: List all members.
+      description: "Returns a list of your organization's members.\r\nMember objects listed in this call do not include information about their associated collections."
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModelListResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModelListResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModelListResponseModel'
+    post:
+      tags:
+      - Members
+      summary: Create a member.
+      description: Creates a new member object by inviting a user to the organization.
+      requestBody:
+        description: The request model.
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MemberCreateRequestModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCreateRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MemberCreateRequestModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MemberCreateRequestModel'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MemberResponseModel'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+  /public/members/{id}/reinvite:
+    post:
+      tags:
+      - Members
+      summary: Re-invite a member.
+      description: Re-sends the invitation email to an organization member.
+      parameters:
+      - name: id
+        in: path
+        description: The identifier of the member to re-invite.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseModel'
+        '404':
+          description: Not Found
+components:
+  schemas:
+    AssociationWithPermissionsRequestModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    MemberResponseModel:
+      required:
+      - accessAll
+      - email
+      - id
+      - object
+      - status
+      - twoFactorEnabled
+      - type
+      - userId
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: member
+        id:
+          type: string
+          description: The member's unique identifier within the organization.
+          format: uuid
+          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
+        userId:
+          type: string
+          description: The member's unique identifier across Bitwarden.
+          format: uuid
+          example: 48b47ee1-493e-4c67-aef7-014996c40eca
+        name:
+          type: string
+          description: The member's name, set from their user account profile.
+          nullable: true
+          example: John Smith
+        email:
+          type: string
+          description: The member's email address.
+          example: jsmith@example.com
+        twoFactorEnabled:
+          type: boolean
+          description: Returns {true} if the member has a two-step login method enabled on their user account.
+        status:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationUserStatusType'
+          description: "The member's status within the organization. All created members start with a status of \"Invited\".\r\nOnce a member accept's their invitation to join the organization, their status changes to \"Accepted\".\r\nAccepted members are then \"Confirmed\" by an organization administrator. Once a member is \"Confirmed\",\r\ntheir status can no longer change."
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
+          description: The associated collections that this member can access.
+          nullable: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationUserType'
+          description: The member's type (or role) within the organization.
+        accessAll:
+          type: boolean
+          description: "Determines if this member can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type: string
+          description: External identifier for reference or linking this member to another system, such as a user directory.
+          nullable: true
+          example: external_id_123456
+      additionalProperties: false
+      description: An organization member.
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: "If multiple errors occurred, they are listed in dictionary. Errors related to a specific\r\nrequest parameter will include a dictionary key describing that parameter."
+          nullable: true
+      additionalProperties: false
+    MemberUpdateRequestModel:
+      required:
+      - accessAll
+      - type
+      type: object
+      properties:
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this member can access.
+          nullable: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationUserType'
+          description: The member's type (or role) within the organization.
+        accessAll:
+          type: boolean
+          description: "Determines if this member can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type: string
+          description: External identifier for reference or linking this member to another system, such as a user directory.
+          nullable: true
+          example: external_id_123456
+      additionalProperties: false
+    MemberResponseModelListResponseModel:
+      required:
+      - data
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MemberResponseModel'
+          description: An array containing the actual response elements, paginated by any request parameters.
+        continuationToken:
+          type: string
+          description: A cursor for use in pagination.
+          nullable: true
+      additionalProperties: false
+    MemberCreateRequestModel:
+      required:
+      - accessAll
+      - email
+      - type
+      type: object
+      properties:
+        email:
+          type: string
+          description: The member's email address.
+          format: email
+          example: jsmith@example.com
+        collections:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this member can access.
+          nullable: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationUserType'
+          description: The member's type (or role) within the organization.
+        accessAll:
+          type: boolean
+          description: "Determines if this member can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type: string
+          description: External identifier for reference or linking this member to another system, such as a user directory.
+          nullable: true
+          example: external_id_123456
+      additionalProperties: false
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    OrganizationUserStatusType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    UpdateGroupIdsRequestModel:
+      type: object
+      properties:
+        groupIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: The associated group ids that this object can access.
+          nullable: true
+      additionalProperties: false
+    OrganizationUserType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+  securitySchemes:
+    OAuth2 Client Credentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://identity.bitwarden.com/connect/token
+          scopes:
+            api.organization: Organization APIs

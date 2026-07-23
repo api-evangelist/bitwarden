@@ -1,0 +1,236 @@
+openapi: 3.0.1
+info:
+  title: Bitwarden Public Collections Events API
+  description: The Bitwarden public APIs.
+  contact:
+    name: Bitwarden Support
+    url: https://bitwarden.com
+    email: support@bitwarden.com
+  license:
+    name: GNU Affero General Public License v3.0
+    url: https://github.com/bitwarden/server/blob/master/LICENSE.txt
+  version: latest
+servers:
+- url: https://api.bitwarden.com
+security:
+- OAuth2 Client Credentials:
+  - api.organization
+tags:
+- name: Events
+paths:
+  /public/events:
+    get:
+      tags:
+      - Events
+      summary: List all events.
+      description: "Returns a filtered list of your organization's event logs, paged by a continuation token.\r\nIf no filters are provided, it will return the last 30 days of event for the organization."
+      parameters:
+      - name: start
+        in: query
+        description: The start date. Must be less than the end date.
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        description: The end date. Must be greater than the start date.
+        schema:
+          type: string
+          format: date-time
+      - name: actingUserId
+        in: query
+        description: The unique identifier of the user that performed the event.
+        schema:
+          type: string
+          format: uuid
+      - name: itemId
+        in: query
+        description: The unique identifier of the related item that the event describes.
+        schema:
+          type: string
+          format: uuid
+      - name: continuationToken
+        in: query
+        description: A cursor for use in pagination.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EventResponseModelListResponseModel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponseModelListResponseModel'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EventResponseModelListResponseModel'
+components:
+  schemas:
+    DeviceType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+      - 18
+      - 19
+      - 20
+      type: integer
+      format: int32
+    EventType:
+      enum:
+      - 1000
+      - 1001
+      - 1002
+      - 1003
+      - 1004
+      - 1005
+      - 1006
+      - 1007
+      - 1100
+      - 1101
+      - 1102
+      - 1103
+      - 1104
+      - 1105
+      - 1106
+      - 1107
+      - 1108
+      - 1109
+      - 1110
+      - 1111
+      - 1112
+      - 1113
+      - 1114
+      - 1115
+      - 1116
+      - 1300
+      - 1301
+      - 1302
+      - 1400
+      - 1401
+      - 1402
+      - 1500
+      - 1501
+      - 1502
+      - 1503
+      - 1504
+      - 1600
+      - 1601
+      - 1700
+      type: integer
+      format: int32
+    EventResponseModel:
+      required:
+      - date
+      - object
+      - type
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: event
+        type:
+          allOf:
+          - $ref: '#/components/schemas/EventType'
+          description: The type of event.
+        itemId:
+          type: string
+          description: The unique identifier of the related item that the event describes.
+          format: uuid
+          nullable: true
+          example: 3767a302-8208-4dc6-b842-030428a1cfad
+        collectionId:
+          type: string
+          description: The unique identifier of the related collection that the event describes.
+          format: uuid
+          nullable: true
+          example: bce212a4-25f3-4888-8a0a-4c5736d851e0
+        groupId:
+          type: string
+          description: The unique identifier of the related group that the event describes.
+          format: uuid
+          nullable: true
+          example: f29a2515-91d2-4452-b49b-5e8040e6b0f4
+        policyId:
+          type: string
+          description: The unique identifier of the related policy that the event describes.
+          format: uuid
+          nullable: true
+          example: f29a2515-91d2-4452-b49b-5e8040e6b0f4
+        memberId:
+          type: string
+          description: The unique identifier of the related member that the event describes.
+          format: uuid
+          nullable: true
+          example: e68b8629-85eb-4929-92c0-b84464976ba4
+        actingUserId:
+          type: string
+          description: The unique identifier of the user that performed the event.
+          format: uuid
+          nullable: true
+          example: a2549f79-a71f-4eb9-9234-eb7247333f94
+        date:
+          type: string
+          description: The date/timestamp when the event occurred.
+          format: date-time
+        device:
+          allOf:
+          - $ref: '#/components/schemas/DeviceType'
+          description: The type of device used by the acting user when the event occurred.
+          nullable: true
+        ipAddress:
+          type: string
+          description: The IP address of the acting user.
+          nullable: true
+          example: 172.16.254.1
+      additionalProperties: false
+      description: An event log.
+    EventResponseModelListResponseModel:
+      required:
+      - data
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventResponseModel'
+          description: An array containing the actual response elements, paginated by any request parameters.
+        continuationToken:
+          type: string
+          description: A cursor for use in pagination.
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    OAuth2 Client Credentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://identity.bitwarden.com/connect/token
+          scopes:
+            api.organization: Organization APIs
