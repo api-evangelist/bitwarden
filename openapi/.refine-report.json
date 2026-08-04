@@ -1,0 +1,24 @@
+{
+  "provider": "bitwarden",
+  "sources": [
+    "bitwarden-collections-api-openapi.yml",
+    "bitwarden-events-api-openapi.yml",
+    "bitwarden-groups-api-openapi.yml",
+    "bitwarden-members-api-openapi.yml",
+    "bitwarden-organization-api-openapi.yml",
+    "bitwarden-policies-api-openapi.yml"
+  ],
+  "outputs": [
+    "bitwarden-collections-api-openapi.yml",
+    "bitwarden-events-api-openapi.yml",
+    "bitwarden-groups-api-openapi.yml",
+    "bitwarden-members-api-openapi.yml",
+    "bitwarden-organization-api-openapi.yml",
+    "bitwarden-policies-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

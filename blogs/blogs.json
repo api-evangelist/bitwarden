@@ -2,10 +2,6 @@
   "repo": "bitwarden",
   "feeds": [
     {
-      "source": "https",
-      "error": "ValueError"
-    },
-    {
       "source": "https://bitwarden.com/blog/feed.xml",
       "feed_url": "https://bitwarden.com/blog/feed.xml",
       "title": "",
@@ -13,6 +9,6 @@
       "method": "feed"
     }
   ],
-  "fetched": "2026-07-11T11:50:51Z",
-  "post_count": 25
+  "fetched": "2026-08-01T15:49:00Z",
+  "post_count": 42
 }
