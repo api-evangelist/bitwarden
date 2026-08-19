@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bitwarden Public Collections Events API",
+    "version": "latest"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://identity.bitwarden.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all events.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/events",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The start date. Must be less than the end date."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The end date. Must be greater than the start date."
+              },
+              {
+                "name": "actingUserId",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the user that performed the event."
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of the related item that the event describes."
+              },
+              {
+                "name": "continuationToken",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for use in pagination."
+              }
+            ]
+          },
+          "docs": "Returns a filtered list of your organization's event logs, paged by a continuation token.\r\nIf no filters are provided, it will return the last 30 days of event for the organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

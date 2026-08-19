@@ -1,0 +1,1390 @@
+{
+  "item": [
+    {
+      "id": "e5feb684-aca2-4031-8ded-d2531bb22c05",
+      "name": "Members",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cee5d03d-3ea6-4991-a726-d419105b5822",
+          "name": "Retrieve a member.",
+          "request": {
+            "name": "Retrieve a member.",
+            "description": {
+              "content": "Retrieves the details of an existing member of the organization. You need only supply the\r\nunique member identifier that was returned upon member creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "members",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the member to be retrieved."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e2fccf90-dbe7-4836-9942-76b6cede8355",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accessAll\": true,\n  \"email\": \"jsmith@example.com\",\n  \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n  \"object\": \"member\",\n  \"status\": 2,\n  \"twoFactorEnabled\": false,\n  \"type\": 2,\n  \"userId\": \"48b47ee1-493e-4c67-aef7-014996c40eca\",\n  \"name\": \"John Smith\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": true\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": false\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fa5c43c-12c2-4578-82ac-0161c802fbc4",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fe3be55-6035-439e-a2c6-d5f6894bbf49",
+          "name": "Update a member.",
+          "request": {
+            "name": "Update a member.",
+            "description": {
+              "content": "Updates the specified member object. If a property is not provided,\r\nthe value of the existing property will be reset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "members",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the member to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessAll\": \"<boolean>\",\n  \"type\": \"<integer>\",\n  \"collections\": [\n    {\n      \"id\": \"<uuid>\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "08523b5e-e058-4ec7-88c5-3e7f0a122ab0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessAll\": \"<boolean>\",\n  \"type\": \"<integer>\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accessAll\": false,\n  \"email\": \"jsmith@example.com\",\n  \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n  \"object\": \"member\",\n  \"status\": 0,\n  \"twoFactorEnabled\": false,\n  \"type\": \"<integer>\",\n  \"userId\": \"48b47ee1-493e-4c67-aef7-014996c40eca\",\n  \"name\": \"John Smith\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": false\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": true\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2120149a-8449-434c-a475-e833d6e9306b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessAll\": \"<boolean>\",\n  \"type\": \"<integer>\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The request model is invalid.\",\n  \"object\": \"error\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c7bf87d-f343-4f40-a843-888dc6ba2029",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessAll\": \"<boolean>\",\n  \"type\": \"<integer>\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a5cd209-7573-440f-bd23-0c032c7a5df4",
+          "name": "Delete a member.",
+          "request": {
+            "name": "Delete a member.",
+            "description": {
+              "content": "Permanently deletes a member from the organization. This cannot be undone.\r\nThe user account will still remain. The user is only removed from the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "members",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the member to be deleted."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "034e3f58-eff4-48fc-abfe-b561f0980f7a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a9876f3-c924-4957-a3d1-3e86c42b09c2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2948f979-e179-404e-9e28-ba3d72af7c85",
+          "name": "Retrieve a member's group ids",
+          "request": {
+            "name": "Retrieve a member's group ids",
+            "description": {
+              "content": "Retrieves the unique identifiers for all groups that are associated with this member. You need only\r\nsupply the unique member identifier that was returned upon member creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "members",
+                ":id",
+                "group-ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the member to be retrieved."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fecdbf36-fd65-4bfb-a6a1-c429bba14af4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id",
+                    "group-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"035b0278-bbaa-4c76-3a51-4697f3770b68\",\n  \"ba5fcad3-4942-9da1-50d2-c7d23c4fe2b1\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3861fe0-2b16-4ec9-a55e-04d592892467",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id",
+                    "group-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb745832-798e-49e5-ae12-d2e58311a46d",
+          "name": "Update a member's groups.",
+          "request": {
+            "name": "Update a member's groups.",
+            "description": {
+              "content": "Updates the specified member's group associations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "members",
+                ":id",
+                "group-ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the member to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "38bd40ac-c769-4178-9166-f5b4212aa45b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id",
+                    "group-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9587e27a-ae6f-44d5-85ca-10f13f0b9d2b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id",
+                    "group-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The request model is invalid.\",\n  \"object\": \"error\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b040980-9d4d-4f66-815f-3aaff9bff44b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id",
+                    "group-ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groupIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3283af9a-f1c5-42bc-ae74-e28a0a2e736c",
+          "name": "List all members.",
+          "request": {
+            "name": "List all members.",
+            "description": {
+              "content": "Returns a list of your organization's members.\r\nMember objects listed in this call do not include information about their associated collections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b2274cc-403c-412b-9d13-7f1a0c95cd04",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"accessAll\": true,\n      \"email\": \"jsmith@example.com\",\n      \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n      \"object\": \"member\",\n      \"status\": 2,\n      \"twoFactorEnabled\": false,\n      \"type\": \"<integer>\",\n      \"userId\": \"48b47ee1-493e-4c67-aef7-014996c40eca\",\n      \"name\": \"John Smith\",\n      \"collections\": [\n        {\n          \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n          \"readOnly\": true\n        },\n        {\n          \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n          \"readOnly\": true\n        }\n      ],\n      \"externalId\": \"external_id_123456\"\n    },\n    {\n      \"accessAll\": true,\n      \"email\": \"jsmith@example.com\",\n      \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n      \"object\": \"member\",\n      \"status\": 0,\n      \"twoFactorEnabled\": true,\n      \"type\": \"<integer>\",\n      \"userId\": \"48b47ee1-493e-4c67-aef7-014996c40eca\",\n      \"name\": \"John Smith\",\n      \"collections\": [\n        {\n          \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n          \"readOnly\": false\n        },\n        {\n          \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n          \"readOnly\": true\n        }\n      ],\n      \"externalId\": \"external_id_123456\"\n    }\n  ],\n  \"object\": \"list\",\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b878171a-6ea8-428a-b94d-877cebbfb796",
+          "name": "Create a member.",
+          "request": {
+            "name": "Create a member.",
+            "description": {
+              "content": "Creates a new member object by inviting a user to the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessAll\": \"<boolean>\",\n  \"email\": \"<email>\",\n  \"type\": \"<integer>\",\n  \"collections\": [\n    {\n      \"id\": \"<uuid>\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6ec67e47-68a1-45d6-8c95-c46e8dd833f7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessAll\": \"<boolean>\",\n  \"email\": \"jsmith@example.com\",\n  \"type\": \"<integer>\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accessAll\": false,\n  \"email\": \"jsmith@example.com\",\n  \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n  \"object\": \"member\",\n  \"status\": 0,\n  \"twoFactorEnabled\": false,\n  \"type\": \"<integer>\",\n  \"userId\": \"48b47ee1-493e-4c67-aef7-014996c40eca\",\n  \"name\": \"John Smith\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": false\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": true\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b90c00cc-e433-45a4-88eb-58737e064a44",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessAll\": \"<boolean>\",\n  \"email\": \"jsmith@example.com\",\n  \"type\": \"<integer>\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The request model is invalid.\",\n  \"object\": \"error\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "954d91bc-bdfc-4371-960d-3ea9e0ca6ca5",
+          "name": "Re-invite a member.",
+          "request": {
+            "name": "Re-invite a member.",
+            "description": {
+              "content": "Re-sends the invitation email to an organization member.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "members",
+                ":id",
+                "reinvite"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the member to re-invite."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19610fa6-0e74-498b-b0db-dbe45af5ecd5",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id",
+                    "reinvite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to re-invite."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e6b0aba-a744-4643-9cf8-8f9fe2fd2969",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id",
+                    "reinvite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to re-invite."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The request model is invalid.\",\n  \"object\": \"error\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de2890b0-e611-43b8-b2c4-53f516e35ebb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "members",
+                    ":id",
+                    "reinvite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the member to re-invite."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bitwarden.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "api.organization"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://identity.bitwarden.com/connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e7c8b952-ad93-49f9-8f91-ea83a6f40c94",
+    "name": "Bitwarden Public Collections Members API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bitwarden public APIs.\n\nContact Support:\n Name: Bitwarden Support\n Email: support@bitwarden.com",
+      "type": "text/plain"
+    }
+  }
+}

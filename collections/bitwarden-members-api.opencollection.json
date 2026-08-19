@@ -1,0 +1,177 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bitwarden Public Collections Members API",
+    "version": "latest"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://identity.bitwarden.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a member.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/members/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the member to be retrieved."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing member of the organization. You need only supply the\r\nunique member identifier that was returned upon member creation."
+        },
+        {
+          "info": {
+            "name": "Update a member.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.bitwarden.com/public/members/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the member to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified member object. If a property is not provided,\r\nthe value of the existing property will be reset."
+        },
+        {
+          "info": {
+            "name": "Delete a member.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bitwarden.com/public/members/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the member to be deleted."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a member from the organization. This cannot be undone.\r\nThe user account will still remain. The user is only removed from the organization."
+        },
+        {
+          "info": {
+            "name": "Retrieve a member's group ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/members/:id/group-ids",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the member to be retrieved."
+              }
+            ]
+          },
+          "docs": "Retrieves the unique identifiers for all groups that are associated with this member. You need only\r\nsupply the unique member identifier that was returned upon member creation."
+        },
+        {
+          "info": {
+            "name": "Update a member's groups.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.bitwarden.com/public/members/:id/group-ids",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the member to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified member's group associations."
+        },
+        {
+          "info": {
+            "name": "List all members.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/members"
+          },
+          "docs": "Returns a list of your organization's members.\r\nMember objects listed in this call do not include information about their associated collections."
+        },
+        {
+          "info": {
+            "name": "Create a member.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bitwarden.com/public/members",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new member object by inviting a user to the organization."
+        },
+        {
+          "info": {
+            "name": "Re-invite a member.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bitwarden.com/public/members/:id/reinvite",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the member to re-invite."
+              }
+            ]
+          },
+          "docs": "Re-sends the invitation email to an organization member."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

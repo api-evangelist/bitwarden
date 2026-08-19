@@ -1,0 +1,650 @@
+{
+  "item": [
+    {
+      "id": "759ba2ca-5f29-44b8-8125-ee837a3dc12f",
+      "name": "Collections",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "24c17e0e-165b-4efa-a4ad-1c0a1ce5c20a",
+          "name": "Retrieve a collection.",
+          "request": {
+            "name": "Retrieve a collection.",
+            "description": {
+              "content": "Retrieves the details of an existing collection. You need only supply the unique collection identifier\r\nthat was returned upon collection creation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "collections",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the collection to be retrieved."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "096d0d5a-fcd4-4f0a-99c2-52ec679bb35e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "collections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the collection to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n  \"object\": \"collection\",\n  \"groups\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": false\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": true\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41bca9c0-b28e-47a6-bb14-8875d9e7e0be",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "collections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the collection to be retrieved."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4109f0e2-267d-4de9-82be-8f2e0db35ef9",
+          "name": "Update a collection.",
+          "request": {
+            "name": "Update a collection.",
+            "description": {
+              "content": "Updates the specified collection object. If a property is not provided,\r\nthe value of the existing property will be reset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "collections",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the collection to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groups\": [\n    {\n      \"id\": \"<uuid>\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e44d7e19-186f-47cc-9acc-6ccdfd99d39b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "collections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the collection to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groups\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n  \"object\": \"collection\",\n  \"groups\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": true\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": false\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61bf34d6-3e9b-46f9-af89-f9bb989c206d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "collections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the collection to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groups\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The request model is invalid.\",\n  \"object\": \"error\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05fab1f4-7955-4984-b608-433ab6bba121",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "collections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the collection to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"groups\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": \"<boolean>\"\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79c967d4-8567-4e58-a844-b50dc3c2a41e",
+          "name": "Delete a collection.",
+          "request": {
+            "name": "Delete a collection.",
+            "description": {
+              "content": "Permanently deletes a collection. This cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "collections",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The identifier of the collection to be deleted."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2c3d6e9d-8e53-48a5-8a97-0c1c9340cdd7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "collections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the collection to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aeca3b96-1e97-433c-ae94-5ec5310b3225",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "collections",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The identifier of the collection to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17edb6ae-4dd7-4882-819b-30d43dc35e5b",
+          "name": "List all collections.",
+          "request": {
+            "name": "List all collections.",
+            "description": {
+              "content": "Returns a list of your organization's collections.\r\nCollection objects listed in this call do not include information about their associated groups.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aeeab224-0c3f-4561-a2a5-92b31dde8a4a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n      \"object\": \"collection\",\n      \"groups\": [\n        {\n          \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n          \"readOnly\": true\n        },\n        {\n          \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n          \"readOnly\": false\n        }\n      ],\n      \"externalId\": \"external_id_123456\"\n    },\n    {\n      \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n      \"object\": \"collection\",\n      \"groups\": [\n        {\n          \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n          \"readOnly\": false\n        },\n        {\n          \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n          \"readOnly\": false\n        }\n      ],\n      \"externalId\": \"external_id_123456\"\n    }\n  ],\n  \"object\": \"list\",\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bitwarden.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "api.organization"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://identity.bitwarden.com/connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c3fc6e25-fa01-4999-9f84-6de6f8b86afe",
+    "name": "Bitwarden Public Collections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bitwarden public APIs.\n\nContact Support:\n Name: Bitwarden Support\n Email: support@bitwarden.com",
+      "type": "text/plain"
+    }
+  }
+}

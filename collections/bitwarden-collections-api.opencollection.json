@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bitwarden Public Collections API",
+    "version": "latest"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://identity.bitwarden.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the collection to be retrieved."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing collection. You need only supply the unique collection identifier\r\nthat was returned upon collection creation."
+        },
+        {
+          "info": {
+            "name": "Update a collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.bitwarden.com/public/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the collection to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified collection object. If a property is not provided,\r\nthe value of the existing property will be reset."
+        },
+        {
+          "info": {
+            "name": "Delete a collection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bitwarden.com/public/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the collection to be deleted."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a collection. This cannot be undone."
+        },
+        {
+          "info": {
+            "name": "List all collections.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/collections"
+          },
+          "docs": "Returns a list of your organization's collections.\r\nCollection objects listed in this call do not include information about their associated groups."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

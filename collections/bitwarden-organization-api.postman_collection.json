@@ -1,0 +1,205 @@
+{
+  "item": [
+    {
+      "id": "f28b0384-f8ca-43e4-ae9b-549bc1fef171",
+      "name": "Organization",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "12f94a63-1210-4f80-b89c-e5648189f56f",
+          "name": "Import members and groups.",
+          "request": {
+            "name": "Import members and groups.",
+            "description": {
+              "content": "Import members and groups from an external system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "organization",
+                "import"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"overwriteExisting\": \"<boolean>\",\n  \"groups\": [\n    {\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"memberExternalIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"externalId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"memberExternalIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"members\": [\n    {\n      \"externalId\": \"<string>\",\n      \"email\": \"<email>\",\n      \"deleted\": \"<boolean>\"\n    },\n    {\n      \"externalId\": \"<string>\",\n      \"email\": \"<email>\",\n      \"deleted\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "49a9e81c-f684-40fd-989a-3096108ceddd",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "organization",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"overwriteExisting\": \"<boolean>\",\n  \"groups\": [\n    {\n      \"externalId\": \"external_id_123456\",\n      \"name\": \"Development Team\",\n      \"memberExternalIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"externalId\": \"external_id_123456\",\n      \"name\": \"Development Team\",\n      \"memberExternalIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"members\": [\n    {\n      \"externalId\": \"external_id_123456\",\n      \"email\": \"jsmith@example.com\",\n      \"deleted\": \"<boolean>\"\n    },\n    {\n      \"externalId\": \"external_id_123456\",\n      \"email\": \"jsmith@example.com\",\n      \"deleted\": \"<boolean>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accessAll\": false,\n  \"email\": \"jsmith@example.com\",\n  \"id\": \"539a36c5-e0d2-4cf9-979e-51ecf5cf6593\",\n  \"object\": \"member\",\n  \"status\": 1,\n  \"twoFactorEnabled\": true,\n  \"type\": 1,\n  \"userId\": \"48b47ee1-493e-4c67-aef7-014996c40eca\",\n  \"name\": \"John Smith\",\n  \"collections\": [\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": false\n    },\n    {\n      \"id\": \"bfbc8338-e329-4dc0-b0c9-317c2ebf1a09\",\n      \"readOnly\": true\n    }\n  ],\n  \"externalId\": \"external_id_123456\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce8eb841-6efc-40ec-ad2e-2b86581cceb0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "organization",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"overwriteExisting\": \"<boolean>\",\n  \"groups\": [\n    {\n      \"externalId\": \"external_id_123456\",\n      \"name\": \"Development Team\",\n      \"memberExternalIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"externalId\": \"external_id_123456\",\n      \"name\": \"Development Team\",\n      \"memberExternalIds\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"members\": [\n    {\n      \"externalId\": \"external_id_123456\",\n      \"email\": \"jsmith@example.com\",\n      \"deleted\": \"<boolean>\"\n    },\n    {\n      \"externalId\": \"external_id_123456\",\n      \"email\": \"jsmith@example.com\",\n      \"deleted\": \"<boolean>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The request model is invalid.\",\n  \"object\": \"error\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bitwarden.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "api.organization"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://identity.bitwarden.com/connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "10852c7a-5230-47b3-8279-36d54d840a00",
+    "name": "Bitwarden Public Collections Organization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bitwarden public APIs.\n\nContact Support:\n Name: Bitwarden Support\n Email: support@bitwarden.com",
+      "type": "text/plain"
+    }
+  }
+}

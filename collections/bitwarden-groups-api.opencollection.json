@@ -1,0 +1,158 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bitwarden Public Collections Groups API",
+    "version": "latest"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://identity.bitwarden.com/connect/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the group to be retrieved."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of an existing group. You need only supply the unique group identifier\r\nthat was returned upon group creation."
+        },
+        {
+          "info": {
+            "name": "Update a group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.bitwarden.com/public/groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the group to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified group object. If a property is not provided,\r\nthe value of the existing property will be reset."
+        },
+        {
+          "info": {
+            "name": "Delete a group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bitwarden.com/public/groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the group to be deleted."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a group. This cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Retrieve a groups's member ids",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/groups/:id/member-ids",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the group to be retrieved."
+              }
+            ]
+          },
+          "docs": "Retrieves the unique identifiers for all members that are associated with this group. You need only\r\nsupply the unique group identifier that was returned upon group creation."
+        },
+        {
+          "info": {
+            "name": "Update a group's members.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.bitwarden.com/public/groups/:id/member-ids",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the group to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified group's member associations."
+        },
+        {
+          "info": {
+            "name": "List all groups.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bitwarden.com/public/groups"
+          },
+          "docs": "Returns a list of your organization's groups.\r\nGroup objects listed in this call do not include information about their associated collections."
+        },
+        {
+          "info": {
+            "name": "Create a group.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bitwarden.com/public/groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new group object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

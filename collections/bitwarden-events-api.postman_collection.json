@@ -1,0 +1,181 @@
+{
+  "item": [
+    {
+      "id": "48b35055-f612-442f-b35e-3d1dd747be85",
+      "name": "Events",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a8a3f5b-9947-4310-bdbb-1d4d04c7b1d2",
+          "name": "List all events.",
+          "request": {
+            "name": "List all events.",
+            "description": {
+              "content": "Returns a filtered list of your organization's event logs, paged by a continuation token.\r\nIf no filters are provided, it will return the last 30 days of event for the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "The start date. Must be less than the end date."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "The end date. Must be greater than the start date."
+                },
+                {
+                  "disabled": false,
+                  "key": "actingUserId",
+                  "value": "<uuid>",
+                  "description": "The unique identifier of the user that performed the event."
+                },
+                {
+                  "disabled": false,
+                  "key": "itemId",
+                  "value": "<uuid>",
+                  "description": "The unique identifier of the related item that the event describes."
+                },
+                {
+                  "disabled": false,
+                  "key": "continuationToken",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5937fa0-c695-4b0e-a638-1e303bafa5b3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "actingUserId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "itemId",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "continuationToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"date\": \"2004-12-03T00:35:00.635Z\",\n      \"object\": \"event\",\n      \"type\": 1004,\n      \"itemId\": \"3767a302-8208-4dc6-b842-030428a1cfad\",\n      \"collectionId\": \"bce212a4-25f3-4888-8a0a-4c5736d851e0\",\n      \"groupId\": \"f29a2515-91d2-4452-b49b-5e8040e6b0f4\",\n      \"policyId\": \"f29a2515-91d2-4452-b49b-5e8040e6b0f4\",\n      \"memberId\": \"e68b8629-85eb-4929-92c0-b84464976ba4\",\n      \"actingUserId\": \"a2549f79-a71f-4eb9-9234-eb7247333f94\",\n      \"device\": 14,\n      \"ipAddress\": \"172.16.254.1\"\n    },\n    {\n      \"date\": \"2012-07-10T07:17:23.617Z\",\n      \"object\": \"event\",\n      \"type\": 1300,\n      \"itemId\": \"3767a302-8208-4dc6-b842-030428a1cfad\",\n      \"collectionId\": \"bce212a4-25f3-4888-8a0a-4c5736d851e0\",\n      \"groupId\": \"f29a2515-91d2-4452-b49b-5e8040e6b0f4\",\n      \"policyId\": \"f29a2515-91d2-4452-b49b-5e8040e6b0f4\",\n      \"memberId\": \"e68b8629-85eb-4929-92c0-b84464976ba4\",\n      \"actingUserId\": \"a2549f79-a71f-4eb9-9234-eb7247333f94\",\n      \"device\": 2,\n      \"ipAddress\": \"172.16.254.1\"\n    }\n  ],\n  \"object\": \"list\",\n  \"continuationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bitwarden.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "api.organization"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://identity.bitwarden.com/connect/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3c357101-88e6-4380-83f7-e3742aba1003",
+    "name": "Bitwarden Public Collections Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bitwarden public APIs.\n\nContact Support:\n Name: Bitwarden Support\n Email: support@bitwarden.com",
+      "type": "text/plain"
+    }
+  }
+}
