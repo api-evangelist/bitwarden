@@ -24,6 +24,13 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bitwarden.
 tags:
   - Security
   - Password Manager
+  - Open-Source
+  - Vault
+  - Identity
+  - SCIM
+tags_raw:
+  - Security
+  - Password Manager
   - Open Source
   - Vault
   - Identity
@@ -41,6 +48,9 @@ apis:
   humanURL: https://bitwarden.com/help/public-api/
   baseURL: https://identity.bitwarden.com/connect/token
   tags:
+  - Identity
+  - Authentication
+  tags_raw:
   - Identity
   - OAuth
   - Authentication
@@ -97,6 +107,8 @@ apis:
   humanURL: https://bitwarden.com/help/api/
   baseURL: https://api.bitwarden.com/public
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -117,6 +129,8 @@ apis:
   humanURL: https://bitwarden.com/help/api/
   baseURL: https://api.bitwarden.com/public
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -137,6 +151,8 @@ apis:
   humanURL: https://bitwarden.com/help/api/
   baseURL: https://api.bitwarden.com/public
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
