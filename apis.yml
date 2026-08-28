@@ -7,6 +7,18 @@ description: >-
   organization-level resources - members, groups, collections, policies, and event logs - plus a separate Vault
   Management API for personal vault items, an Identity (OAuth2) endpoint for token issuance, a SCIM endpoint for
   directory-based provisioning, and the Secrets Manager API for application secrets.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
