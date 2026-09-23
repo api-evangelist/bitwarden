@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Bitwarden Public Collections Groups API
+  title: Bitwarden Public Groups API
   description: The Bitwarden public APIs.
   contact:
     name: Bitwarden Support
@@ -22,8 +22,10 @@ paths:
     get:
       tags:
       - Groups
-      summary: Retrieve a group.
-      description: "Retrieves the details of an existing group. You need only supply the unique group identifier\r\nthat was returned upon group creation."
+      summary: Retrieve a group
+      description: 'Retrieves the details of an existing group. You need only supply the unique group identifier
+
+        that was returned upon group creation.'
       parameters:
       - name: id
         in: path
@@ -47,11 +49,15 @@ paths:
                 $ref: '#/components/schemas/GroupResponseModel'
         '404':
           description: Not Found
+      operationId: getPublicGroupsById
+      x-operation-id-source: derived
     put:
       tags:
       - Groups
-      summary: Update a group.
-      description: "Updates the specified group object. If a property is not provided,\r\nthe value of the existing property will be reset."
+      summary: Update a group
+      description: 'Updates the specified group object. If a property is not provided,
+
+        the value of the existing property will be reset.'
       parameters:
       - name: id
         in: path
@@ -102,10 +108,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponseModel'
         '404':
           description: Not Found
+      operationId: putPublicGroupsById
+      x-operation-id-source: derived
     delete:
       tags:
       - Groups
-      summary: Delete a group.
+      summary: Delete a group
       description: Permanently deletes a group. This cannot be undone.
       parameters:
       - name: id
@@ -120,12 +128,16 @@ paths:
           description: Success
         '404':
           description: Not Found
+      operationId: deletePublicGroupsById
+      x-operation-id-source: derived
   /public/groups/{id}/member-ids:
     get:
       tags:
       - Groups
       summary: Retrieve a groups's member ids
-      description: "Retrieves the unique identifiers for all members that are associated with this group. You need only\r\nsupply the unique group identifier that was returned upon group creation."
+      description: 'Retrieves the unique identifiers for all members that are associated with this group. You need only
+
+        supply the unique group identifier that was returned upon group creation.'
       parameters:
       - name: id
         in: path
@@ -161,10 +173,12 @@ paths:
                   format: uuid
         '404':
           description: Not Found
+      operationId: getPublicGroupsByIdMemberIds
+      x-operation-id-source: derived
     put:
       tags:
       - Groups
-      summary: Update a group's members.
+      summary: Update a group's members
       description: Updates the specified group's member associations.
       parameters:
       - name: id
@@ -206,12 +220,16 @@ paths:
                 $ref: '#/components/schemas/ErrorResponseModel'
         '404':
           description: Not Found
+      operationId: putPublicGroupsByIdMemberIds
+      x-operation-id-source: derived
   /public/groups:
     get:
       tags:
       - Groups
-      summary: List all groups.
-      description: "Returns a list of your organization's groups.\r\nGroup objects listed in this call do not include information about their associated collections."
+      summary: List all groups
+      description: 'Returns a list of your organization''s groups.
+
+        Group objects listed in this call do not include information about their associated collections.'
       responses:
         '200':
           description: Success
@@ -225,10 +243,12 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/GroupResponseModelListResponseModel'
+      operationId: getPublicGroups
+      x-operation-id-source: derived
     post:
       tags:
       - Groups
-      summary: Create a group.
+      summary: Create a group
       description: Creates a new group object.
       requestBody:
         description: The request model.
@@ -270,23 +290,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponseModel'
+      operationId: postPublicGroups
+      x-operation-id-source: derived
 components:
   schemas:
-    AssociationWithPermissionsRequestModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
     ErrorResponseModel:
       required:
       - message
@@ -303,15 +310,109 @@ components:
           description: A human-readable message providing details about the error.
           example: The request model is invalid.
         errors:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: array
             items:
               type: string
-          description: "If multiple errors occurred, they are listed in dictionary. Errors related to a specific\r\nrequest parameter will include a dictionary key describing that parameter."
-          nullable: true
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
       additionalProperties: false
-    AssociationWithPermissionsResponseModel:
+    UpdateMemberIdsRequestModel:
+      type: object
+      properties:
+        memberIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The associated member ids that have access to this object.
+      additionalProperties: false
+    GroupCreateUpdateRequestModel:
+      required:
+      - accessAll
+      - name
+      type: object
+      properties:
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this group can access.
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: The name of the group.
+          example: Development Team
+        accessAll:
+          type: boolean
+          description: 'Determines if this group can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this group to another system, such as a user directory.
+          example: external_id_123456
+      additionalProperties: false
+    GroupResponseModel:
+      required:
+      - accessAll
+      - id
+      - name
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: group
+        id:
+          type: string
+          description: The group's unique identifier.
+          format: uuid
+          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
+          description: The associated collections that this group can access.
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: The name of the group.
+          example: Development Team
+        accessAll:
+          type: boolean
+          description: 'Determines if this group can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this group to another system, such as a user directory.
+          example: external_id_123456
+      additionalProperties: false
+      description: A user group.
+    AssociationWithPermissionsRequestModel:
       required:
       - id
       - readOnly
@@ -343,94 +444,28 @@ components:
             $ref: '#/components/schemas/GroupResponseModel'
           description: An array containing the actual response elements, paginated by any request parameters.
         continuationToken:
-          type: string
+          type:
+          - string
+          - 'null'
           description: A cursor for use in pagination.
-          nullable: true
       additionalProperties: false
-    UpdateMemberIdsRequestModel:
-      type: object
-      properties:
-        memberIds:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: The associated member ids that have access to this object.
-          nullable: true
-      additionalProperties: false
-    GroupResponseModel:
+    AssociationWithPermissionsResponseModel:
       required:
-      - accessAll
       - id
-      - name
-      - object
+      - readOnly
       type: object
       properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: group
         id:
           type: string
-          description: The group's unique identifier.
+          description: The associated object's unique identifier.
           format: uuid
-          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
-        collections:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
-          description: The associated collections that this group can access.
-          nullable: true
-        name:
-          maxLength: 100
-          minLength: 0
-          type: string
-          description: The name of the group.
-          example: Development Team
-        accessAll:
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
           type: boolean
-          description: "Determines if this group can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type: string
-          description: External identifier for reference or linking this group to another system, such as a user directory.
-          nullable: true
-          example: external_id_123456
-      additionalProperties: false
-      description: A user group.
-    GroupCreateUpdateRequestModel:
-      required:
-      - accessAll
-      - name
-      type: object
-      properties:
-        collections:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
-          description: The associated collections that this group can access.
-          nullable: true
-        name:
-          maxLength: 100
-          minLength: 0
-          type: string
-          description: The name of the group.
-          example: Development Team
-        accessAll:
-          type: boolean
-          description: "Determines if this group can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type: string
-          description: External identifier for reference or linking this group to another system, such as a user directory.
-          nullable: true
-          example: external_id_123456
+          description: When true, the read only permission will not allow the user or group to make changes to items.
       additionalProperties: false
   securitySchemes:
-    OAuth2 Client Credentials:
+    OAuth2_Client_Credentials:
       type: oauth2
       flows:
         clientCredentials:

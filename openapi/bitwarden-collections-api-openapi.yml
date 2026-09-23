@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Bitwarden Public Collections API
   description: The Bitwarden public APIs.
@@ -22,8 +22,10 @@ paths:
     get:
       tags:
       - Collections
-      summary: Retrieve a collection.
-      description: "Retrieves the details of an existing collection. You need only supply the unique collection identifier\r\nthat was returned upon collection creation."
+      summary: Retrieve a collection
+      description: 'Retrieves the details of an existing collection. You need only supply the unique collection identifier
+
+        that was returned upon collection creation.'
       parameters:
       - name: id
         in: path
@@ -47,11 +49,15 @@ paths:
                 $ref: '#/components/schemas/CollectionResponseModel'
         '404':
           description: Not Found
+      operationId: getPublicCollectionsById
+      x-operation-id-source: derived
     put:
       tags:
       - Collections
-      summary: Update a collection.
-      description: "Updates the specified collection object. If a property is not provided,\r\nthe value of the existing property will be reset."
+      summary: Update a collection
+      description: 'Updates the specified collection object. If a property is not provided,
+
+        the value of the existing property will be reset.'
       parameters:
       - name: id
         in: path
@@ -102,10 +108,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponseModel'
         '404':
           description: Not Found
+      operationId: putPublicCollectionsById
+      x-operation-id-source: derived
     delete:
       tags:
       - Collections
-      summary: Delete a collection.
+      summary: Delete a collection
       description: Permanently deletes a collection. This cannot be undone.
       parameters:
       - name: id
@@ -120,12 +128,16 @@ paths:
           description: Success
         '404':
           description: Not Found
+      operationId: deletePublicCollectionsById
+      x-operation-id-source: derived
   /public/collections:
     get:
       tags:
       - Collections
-      summary: List all collections.
-      description: "Returns a list of your organization's collections.\r\nCollection objects listed in this call do not include information about their associated groups."
+      summary: List all collections
+      description: 'Returns a list of your organization''s collections.
+
+        Collection objects listed in this call do not include information about their associated groups.'
       responses:
         '200':
           description: Success
@@ -139,47 +151,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/CollectionResponseModelListResponseModel'
+      operationId: getPublicCollections
+      x-operation-id-source: derived
 components:
   schemas:
-    AssociationWithPermissionsRequestModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
-    ErrorResponseModel:
-      required:
-      - message
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: error
-        message:
-          type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: "If multiple errors occurred, they are listed in dictionary. Errors related to a specific\r\nrequest parameter will include a dictionary key describing that parameter."
-          nullable: true
-      additionalProperties: false
     CollectionResponseModel:
       required:
       - id
@@ -197,51 +172,48 @@ components:
           format: uuid
           example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
         groups:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
           description: The associated groups that this collection is assigned to.
-          nullable: true
         externalId:
           maxLength: 300
           minLength: 0
-          type: string
+          type:
+          - string
+          - 'null'
           description: External identifier for reference or linking this collection to another system.
-          nullable: true
           example: external_id_123456
       additionalProperties: false
       description: A collection.
-    AssociationWithPermissionsResponseModel:
+    ErrorResponseModel:
       required:
-      - id
-      - readOnly
+      - message
+      - object
       type: object
       properties:
-        id:
+        object:
           type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
-    CollectionUpdateRequestModel:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
-          description: The associated groups that this collection is assigned to.
-          nullable: true
-        externalId:
-          maxLength: 300
-          minLength: 0
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
           type: string
-          description: External identifier for reference or linking this collection to another system.
-          nullable: true
-          example: external_id_123456
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
       additionalProperties: false
     CollectionResponseModelListResponseModel:
       required:
@@ -260,12 +232,62 @@ components:
             $ref: '#/components/schemas/CollectionResponseModel'
           description: An array containing the actual response elements, paginated by any request parameters.
         continuationToken:
-          type: string
+          type:
+          - string
+          - 'null'
           description: A cursor for use in pagination.
-          nullable: true
+      additionalProperties: false
+    CollectionUpdateRequestModel:
+      type: object
+      properties:
+        groups:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated groups that this collection is assigned to.
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this collection to another system.
+          example: external_id_123456
+      additionalProperties: false
+    AssociationWithPermissionsRequestModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
       additionalProperties: false
   securitySchemes:
-    OAuth2 Client Credentials:
+    OAuth2_Client_Credentials:
       type: oauth2
       flows:
         clientCredentials:

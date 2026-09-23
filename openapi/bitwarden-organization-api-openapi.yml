@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Bitwarden Public Collections Organization API
+  title: Bitwarden Public Organization API
   description: The Bitwarden public APIs.
   contact:
     name: Bitwarden Support
@@ -22,7 +22,7 @@ paths:
     post:
       tags:
       - Organization
-      summary: Import members and groups.
+      summary: Import members and groups
       description: Import members and groups from an external system.
       requestBody:
         description: The request model.
@@ -64,8 +64,37 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponseModel'
+      operationId: postPublicOrganizationImport
+      x-operation-id-source: derived
 components:
   schemas:
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
+      additionalProperties: false
     OrganizationImportGroupRequestModel:
       required:
       - externalId
@@ -85,35 +114,21 @@ components:
           description: External identifier for reference or linking this group to another system, such as a user directory.
           example: external_id_123456
         memberExternalIds:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
           description: The associated external ids for members in this group.
-          nullable: true
       additionalProperties: false
-    OrganizationImportMemberRequestModel:
-      required:
-      - externalId
-      type: object
-      properties:
-        email:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: The member's email address. Required for non-deleted users.
-          format: email
-          nullable: true
-          example: jsmith@example.com
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type: string
-          description: External identifier for reference or linking this member to another system, such as a user directory.
-          example: external_id_123456
-        deleted:
-          type: boolean
-          description: Determines if this member should be removed from the organization during import.
-      additionalProperties: false
+    OrganizationUserType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
     MemberResponseModel:
       required:
       - accessAll
@@ -142,9 +157,10 @@ components:
           format: uuid
           example: 48b47ee1-493e-4c67-aef7-014996c40eca
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           description: The member's name, set from their user account profile.
-          nullable: true
           example: John Smith
         email:
           type: string
@@ -156,73 +172,92 @@ components:
         status:
           allOf:
           - $ref: '#/components/schemas/OrganizationUserStatusType'
-          description: "The member's status within the organization. All created members start with a status of \"Invited\".\r\nOnce a member accept's their invitation to join the organization, their status changes to \"Accepted\".\r\nAccepted members are then \"Confirmed\" by an organization administrator. Once a member is \"Confirmed\",\r\ntheir status can no longer change."
+          description: 'The member''s status within the organization. All created members start with a status of "Invited".
+
+            Once a member accept''s their invitation to join the organization, their status changes to "Accepted".
+
+            Accepted members are then "Confirmed" by an organization administrator. Once a member is "Confirmed",
+
+            their status can no longer change.'
         collections:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
           description: The associated collections that this member can access.
-          nullable: true
         type:
           allOf:
           - $ref: '#/components/schemas/OrganizationUserType'
           description: The member's type (or role) within the organization.
         accessAll:
           type: boolean
-          description: "Determines if this member can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
+          description: 'Determines if this member can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
         externalId:
           maxLength: 300
           minLength: 0
-          type: string
+          type:
+          - string
+          - 'null'
           description: External identifier for reference or linking this member to another system, such as a user directory.
-          nullable: true
           example: external_id_123456
       additionalProperties: false
       description: An organization member.
-    ErrorResponseModel:
-      required:
-      - message
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: error
-        message:
-          type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: "If multiple errors occurred, they are listed in dictionary. Errors related to a specific\r\nrequest parameter will include a dictionary key describing that parameter."
-          nullable: true
-      additionalProperties: false
+    OrganizationUserStatusType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
     OrganizationImportRequestModel:
       required:
       - overwriteExisting
       type: object
       properties:
         groups:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OrganizationImportGroupRequestModel'
           description: Groups to import.
-          nullable: true
         members:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/OrganizationImportMemberRequestModel'
           description: Members to import.
-          nullable: true
         overwriteExisting:
           type: boolean
           description: Determines if the data in this request should overwrite or append to the existing organization data.
+      additionalProperties: false
+    OrganizationImportMemberRequestModel:
+      required:
+      - externalId
+      type: object
+      properties:
+        email:
+          maxLength: 50
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: The member's email address. Required for non-deleted users.
+          format: email
+          example: jsmith@example.com
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type: string
+          description: External identifier for reference or linking this member to another system, such as a user directory.
+          example: external_id_123456
+        deleted:
+          type: boolean
+          description: Determines if this member should be removed from the organization during import.
       additionalProperties: false
     AssociationWithPermissionsResponseModel:
       required:
@@ -239,23 +274,8 @@ components:
           type: boolean
           description: When true, the read only permission will not allow the user or group to make changes to items.
       additionalProperties: false
-    OrganizationUserStatusType:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
-    OrganizationUserType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
   securitySchemes:
-    OAuth2 Client Credentials:
+    OAuth2_Client_Credentials:
       type: oauth2
       flows:
         clientCredentials:

@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Bitwarden Public Collections Policies API
+  title: Bitwarden Public Policies API
   description: The Bitwarden public APIs.
   contact:
     name: Bitwarden Support
@@ -22,7 +22,7 @@ paths:
     get:
       tags:
       - Policies
-      summary: Retrieve a policy.
+      summary: Retrieve a policy
       description: Retrieves the details of a policy.
       parameters:
       - name: type
@@ -46,11 +46,13 @@ paths:
                 $ref: '#/components/schemas/GroupResponseModel'
         '404':
           description: Not Found
+      operationId: getPublicPoliciesByType
+      x-operation-id-source: derived
   /public/policies:
     get:
       tags:
       - Policies
-      summary: List all policies.
+      summary: List all policies
       description: Returns a list of your organization's policies.
       responses:
         '200':
@@ -65,12 +67,16 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/PolicyResponseModelListResponseModel'
+      operationId: getPublicPolicies
+      x-operation-id-source: derived
   /public/policies/{id}:
     put:
       tags:
       - Policies
-      summary: Update a policy.
-      description: "Updates the specified policy. If a property is not provided,\r\nthe value of the existing property will be reset."
+      summary: Update a policy
+      description: 'Updates the specified policy. If a property is not provided,
+
+        the value of the existing property will be reset.'
       parameters:
       - name: type
         in: query
@@ -124,8 +130,107 @@ paths:
                 $ref: '#/components/schemas/ErrorResponseModel'
         '404':
           description: Not Found
+      operationId: putPublicPoliciesById
+      x-operation-id-source: derived
 components:
   schemas:
+    PolicyUpdateRequestModel:
+      required:
+      - enabled
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Determines if this policy is enabled and enforced.
+        data:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: object
+            additionalProperties: false
+          description: Data for the policy.
+      additionalProperties: false
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
+      additionalProperties: false
+    PolicyType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    GroupResponseModel:
+      required:
+      - accessAll
+      - id
+      - name
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: group
+        id:
+          type: string
+          description: The group's unique identifier.
+          format: uuid
+          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
+          description: The associated collections that this group can access.
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: The name of the group.
+          example: Development Team
+        accessAll:
+          type: boolean
+          description: 'Determines if this group can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this group to another system, such as a user directory.
+          example: external_id_123456
+      additionalProperties: false
+      description: A user group.
     PolicyResponseModel:
       required:
       - enabled
@@ -152,69 +257,15 @@ components:
           type: boolean
           description: Determines if this policy is enabled and enforced.
         data:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: object
             additionalProperties: false
           description: Data for the policy.
-          nullable: true
       additionalProperties: false
       description: A policy.
-    ErrorResponseModel:
-      required:
-      - message
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: error
-        message:
-          type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: "If multiple errors occurred, they are listed in dictionary. Errors related to a specific\r\nrequest parameter will include a dictionary key describing that parameter."
-          nullable: true
-      additionalProperties: false
-    PolicyUpdateRequestModel:
-      required:
-      - enabled
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Determines if this policy is enabled and enforced.
-        data:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties: false
-          description: Data for the policy.
-          nullable: true
-      additionalProperties: false
-    AssociationWithPermissionsResponseModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
     PolicyResponseModelListResponseModel:
       required:
       - data
@@ -232,61 +283,28 @@ components:
             $ref: '#/components/schemas/PolicyResponseModel'
           description: An array containing the actual response elements, paginated by any request parameters.
         continuationToken:
-          type: string
+          type:
+          - string
+          - 'null'
           description: A cursor for use in pagination.
-          nullable: true
       additionalProperties: false
-    GroupResponseModel:
+    AssociationWithPermissionsResponseModel:
       required:
-      - accessAll
       - id
-      - name
-      - object
+      - readOnly
       type: object
       properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: group
         id:
           type: string
-          description: The group's unique identifier.
+          description: The associated object's unique identifier.
           format: uuid
-          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
-        collections:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssociationWithPermissionsResponseModel'
-          description: The associated collections that this group can access.
-          nullable: true
-        name:
-          maxLength: 100
-          minLength: 0
-          type: string
-          description: The name of the group.
-          example: Development Team
-        accessAll:
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
           type: boolean
-          description: "Determines if this group can access all collections within the organization, or only the associated\r\ncollections. If set to {true}, this option overrides any collection assignments."
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type: string
-          description: External identifier for reference or linking this group to another system, such as a user directory.
-          nullable: true
-          example: external_id_123456
+          description: When true, the read only permission will not allow the user or group to make changes to items.
       additionalProperties: false
-      description: A user group.
-    PolicyType:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
   securitySchemes:
-    OAuth2 Client Credentials:
+    OAuth2_Client_Credentials:
       type: oauth2
       flows:
         clientCredentials:

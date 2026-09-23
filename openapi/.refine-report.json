@@ -1,12 +1,7 @@
 {
   "provider": "bitwarden",
   "sources": [
-    "bitwarden-collections-api-openapi.yml",
-    "bitwarden-events-api-openapi.yml",
-    "bitwarden-groups-api-openapi.yml",
-    "bitwarden-members-api-openapi.yml",
-    "bitwarden-organization-api-openapi.yml",
-    "bitwarden-policies-api-openapi.yml"
+    "_original/bitwarden-public-swagger.json"
   ],
   "outputs": [
     "bitwarden-collections-api-openapi.yml",
@@ -19,6 +14,23 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "bitwarden-public-swagger.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0; renamed 1 component key(s) illegal in 3.x (e.g. OAuth2 Client Credentials)",
+    "bitwarden-public-swagger.json: declared missing tag: Collections",
+    "bitwarden-public-swagger.json: declared missing tag: Events",
+    "bitwarden-public-swagger.json: declared missing tag: Groups",
+    "bitwarden-public-swagger.json: declared missing tag: Members",
+    "bitwarden-public-swagger.json: declared missing tag: Organization",
+    "bitwarden-public-swagger.json: declared missing tag: Policies",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "bitwarden-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bitwarden-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bitwarden-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bitwarden-members-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bitwarden-organization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "bitwarden-policies-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
