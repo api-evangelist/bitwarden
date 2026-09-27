@@ -356,51 +356,6 @@ components:
 
             request parameter will include a dictionary key describing that parameter.'
       additionalProperties: false
-    OrganizationUserType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
-    MemberCreateRequestModel:
-      required:
-      - accessAll
-      - email
-      - type
-      type: object
-      properties:
-        email:
-          type: string
-          description: The member's email address.
-          format: email
-          example: jsmith@example.com
-        collections:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
-          description: The associated collections that this member can access.
-        type:
-          allOf:
-          - $ref: '#/components/schemas/OrganizationUserType'
-          description: The member's type (or role) within the organization.
-        accessAll:
-          type: boolean
-          description: 'Determines if this member can access all collections within the organization, or only the associated
-
-            collections. If set to {true}, this option overrides any collection assignments.'
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: External identifier for reference or linking this member to another system, such as a user directory.
-          example: external_id_123456
-      additionalProperties: false
     MemberUpdateRequestModel:
       required:
       - accessAll
@@ -432,6 +387,33 @@ components:
           description: External identifier for reference or linking this member to another system, such as a user directory.
           example: external_id_123456
       additionalProperties: false
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    UpdateGroupIdsRequestModel:
+      type: object
+      properties:
+        groupIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The associated group ids that this object can access.
+      additionalProperties: false
     MemberResponseModelListResponseModel:
       required:
       - data
@@ -454,18 +436,13 @@ components:
           - 'null'
           description: A cursor for use in pagination.
       additionalProperties: false
-    UpdateGroupIdsRequestModel:
-      type: object
-      properties:
-        groupIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The associated group ids that this object can access.
-      additionalProperties: false
+    OrganizationUserStatusType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
     MemberResponseModel:
       required:
       - accessAll
@@ -557,27 +534,50 @@ components:
           type: boolean
           description: When true, the read only permission will not allow the user or group to make changes to items.
       additionalProperties: false
-    OrganizationUserStatusType:
+    OrganizationUserType:
       enum:
       - 0
       - 1
       - 2
+      - 3
       type: integer
       format: int32
-    AssociationWithPermissionsResponseModel:
+    MemberCreateRequestModel:
       required:
-      - id
-      - readOnly
+      - accessAll
+      - email
+      - type
       type: object
       properties:
-        id:
+        email:
           type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
+          description: The member's email address.
+          format: email
+          example: jsmith@example.com
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this member can access.
+        type:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationUserType'
+          description: The member's type (or role) within the organization.
+        accessAll:
           type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
+          description: 'Determines if this member can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this member to another system, such as a user directory.
+          example: external_id_123456
       additionalProperties: false
   securitySchemes:
     OAuth2_Client_Credentials:

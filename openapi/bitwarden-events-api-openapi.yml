@@ -172,28 +172,6 @@ components:
           example: 172.16.254.1
       additionalProperties: false
       description: An event log.
-    EventResponseModelListResponseModel:
-      required:
-      - data
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventResponseModel'
-          description: An array containing the actual response elements, paginated by any request parameters.
-        continuationToken:
-          type:
-          - string
-          - 'null'
-          description: A cursor for use in pagination.
-      additionalProperties: false
     EventType:
       enum:
       - 1000
@@ -237,6 +215,28 @@ components:
       - 1700
       type: integer
       format: int32
+    EventResponseModelListResponseModel:
+      required:
+      - data
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventResponseModel'
+          description: An array containing the actual response elements, paginated by any request parameters.
+        continuationToken:
+          type:
+          - string
+          - 'null'
+          description: A cursor for use in pagination.
+      additionalProperties: false
   securitySchemes:
     OAuth2_Client_Credentials:
       type: oauth2

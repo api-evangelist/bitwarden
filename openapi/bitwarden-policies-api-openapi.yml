@@ -151,40 +151,41 @@ components:
             additionalProperties: false
           description: Data for the policy.
       additionalProperties: false
-    ErrorResponseModel:
+    PolicyResponseModel:
       required:
-      - message
+      - enabled
+      - id
       - object
+      - type
       type: object
       properties:
         object:
           type: string
           description: String representing the object's type. Objects of the same type share the same properties.
           readOnly: true
-          example: error
-        message:
+          example: policy
+        id:
           type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
+          description: The policy's unique identifier.
+          format: uuid
+          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
+        type:
+          allOf:
+          - $ref: '#/components/schemas/PolicyType'
+          description: The type of policy.
+        enabled:
+          type: boolean
+          description: Determines if this policy is enabled and enforced.
+        data:
           type:
           - object
           - 'null'
           additionalProperties:
-            type: array
-            items:
-              type: string
-          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
-
-            request parameter will include a dictionary key describing that parameter.'
+            type: object
+            additionalProperties: false
+          description: Data for the policy.
       additionalProperties: false
-    PolicyType:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
+      description: A policy.
     GroupResponseModel:
       required:
       - accessAll
@@ -231,41 +232,55 @@ components:
           example: external_id_123456
       additionalProperties: false
       description: A user group.
-    PolicyResponseModel:
+    ErrorResponseModel:
       required:
-      - enabled
-      - id
+      - message
       - object
-      - type
       type: object
       properties:
         object:
           type: string
           description: String representing the object's type. Objects of the same type share the same properties.
           readOnly: true
-          example: policy
-        id:
+          example: error
+        message:
           type: string
-          description: The policy's unique identifier.
-          format: uuid
-          example: 539a36c5-e0d2-4cf9-979e-51ecf5cf6593
-        type:
-          allOf:
-          - $ref: '#/components/schemas/PolicyType'
-          description: The type of policy.
-        enabled:
-          type: boolean
-          description: Determines if this policy is enabled and enforced.
-        data:
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
           type:
           - object
           - 'null'
           additionalProperties:
-            type: object
-            additionalProperties: false
-          description: Data for the policy.
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
       additionalProperties: false
-      description: A policy.
+    PolicyType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
     PolicyResponseModelListResponseModel:
       required:
       - data
@@ -287,21 +302,6 @@ components:
           - string
           - 'null'
           description: A cursor for use in pagination.
-      additionalProperties: false
-    AssociationWithPermissionsResponseModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
       additionalProperties: false
   securitySchemes:
     OAuth2_Client_Credentials:
