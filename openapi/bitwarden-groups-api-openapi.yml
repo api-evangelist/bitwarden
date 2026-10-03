@@ -294,17 +294,47 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UpdateMemberIdsRequestModel:
+    AssociationWithPermissionsRequestModel:
+      required:
+      - id
+      - readOnly
       type: object
       properties:
-        memberIds:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
           type:
-          - array
+          - object
           - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The associated member ids that have access to this object.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
       additionalProperties: false
     GroupResponseModelListResponseModel:
       required:
@@ -327,6 +357,54 @@ components:
           - string
           - 'null'
           description: A cursor for use in pagination.
+      additionalProperties: false
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    GroupCreateUpdateRequestModel:
+      required:
+      - accessAll
+      - name
+      type: object
+      properties:
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this group can access.
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: The name of the group.
+          example: Development Team
+        accessAll:
+          type: boolean
+          description: 'Determines if this group can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this group to another system, such as a user directory.
+          example: external_id_123456
       additionalProperties: false
     GroupResponseModel:
       required:
@@ -374,95 +452,17 @@ components:
           example: external_id_123456
       additionalProperties: false
       description: A user group.
-    ErrorResponseModel:
-      required:
-      - message
-      - object
+    UpdateMemberIdsRequestModel:
       type: object
       properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: error
-        message:
-          type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
-
-            request parameter will include a dictionary key describing that parameter.'
-      additionalProperties: false
-    AssociationWithPermissionsResponseModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
-    AssociationWithPermissionsRequestModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
-    GroupCreateUpdateRequestModel:
-      required:
-      - accessAll
-      - name
-      type: object
-      properties:
-        collections:
+        memberIds:
           type:
           - array
           - 'null'
           items:
-            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
-          description: The associated collections that this group can access.
-        name:
-          maxLength: 100
-          minLength: 0
-          type: string
-          description: The name of the group.
-          example: Development Team
-        accessAll:
-          type: boolean
-          description: 'Determines if this group can access all collections within the organization, or only the associated
-
-            collections. If set to {true}, this option overrides any collection assignments.'
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: External identifier for reference or linking this group to another system, such as a user directory.
-          example: external_id_123456
+            type: string
+            format: uuid
+          description: The associated member ids that have access to this object.
       additionalProperties: false
   securitySchemes:
     OAuth2_Client_Credentials:

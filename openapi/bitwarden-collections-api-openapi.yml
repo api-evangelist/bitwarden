@@ -155,34 +155,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ErrorResponseModel:
-      required:
-      - message
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: error
-        message:
-          type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
-
-            request parameter will include a dictionary key describing that parameter.'
-      additionalProperties: false
-    AssociationWithPermissionsResponseModel:
+    AssociationWithPermissionsRequestModel:
       required:
       - id
       - readOnly
@@ -219,7 +192,34 @@ components:
           - 'null'
           description: A cursor for use in pagination.
       additionalProperties: false
-    AssociationWithPermissionsRequestModel:
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
+      additionalProperties: false
+    AssociationWithPermissionsResponseModel:
       required:
       - id
       - readOnly
