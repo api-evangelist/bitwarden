@@ -1,0 +1,56 @@
+slug: bitwarden
+provider: Bitwarden
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Groups
+  spec_file: bitwarden-groups-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: PUT /public/groups/{id}/member-ids  Update a group's members; GroupCreateUpdateRequestModel
+  reason: Full lifecycle of organization access groups and assignment of members to them in a credential-management
+    platform — classic identity and access administration.
+- tag: Members
+  spec_file: bitwarden-members-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /public/members  Create a member; POST /public/members/{id}/reinvite  Re-invite a member;
+    OrganizationUserType, OrganizationUserStatusType
+  reason: Creates, invites, updates, deletes organization users and sets their role/type and group membership
+    — user account and entitlement administration (joiners-movers-leavers), not HR employee records.
+- tag: Collections
+  spec_file: bitwarden-collections-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: PUT /public/collections/{id}  Update a collection; schemas AssociationWithPermissionsRequestModel,
+    AssociationWithPermissionsResponseModel
+  reason: Collections are organization containers of vault secrets whose update payload carries group/member
+    permission associations, so the surface administers who may access which credentials — access management
+    within a security platform. Not 0.8+ because the operations are container CRUD and permissions are
+    only implied by the association schemas.
+- tag: Organization
+  spec_file: bitwarden-organization-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /public/organization/import  Import members and groups; OrganizationImportMemberRequestModel,
+    OrganizationImportGroupRequestModel
+  reason: Bulk directory-style import of users and access groups into the organization — identity provisioning.
+    Single bulk-import operation, so held below 0.8.

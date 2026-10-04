@@ -241,6 +241,9 @@ apis:
   - type: Documentation
     url: https://bitwarden.com/help/event-logs/
 common:
+  - type: CapabilityMap
+    url: capabilities/bitwarden-capability-edges.yml
+    name: Bitwarden Business Capability Map
   - type: AgenticAccess
     url: agentic-access/bitwarden-agentic-access.yml
   - type: TrustCenter
