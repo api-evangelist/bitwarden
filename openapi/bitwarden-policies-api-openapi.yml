@@ -134,87 +134,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PolicyUpdateRequestModel:
-      required:
-      - enabled
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Determines if this policy is enabled and enforced.
-        data:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: object
-            additionalProperties: false
-          description: Data for the policy.
-      additionalProperties: false
-    PolicyResponseModelListResponseModel:
-      required:
-      - data
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolicyResponseModel'
-          description: An array containing the actual response elements, paginated by any request parameters.
-        continuationToken:
-          type:
-          - string
-          - 'null'
-          description: A cursor for use in pagination.
-      additionalProperties: false
-    ErrorResponseModel:
-      required:
-      - message
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: error
-        message:
-          type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
-
-            request parameter will include a dictionary key describing that parameter.'
-      additionalProperties: false
-    AssociationWithPermissionsResponseModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
     PolicyType:
       enum:
       - 0
@@ -268,6 +187,43 @@ components:
           example: external_id_123456
       additionalProperties: false
       description: A user group.
+    PolicyResponseModelListResponseModel:
+      required:
+      - data
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyResponseModel'
+          description: An array containing the actual response elements, paginated by any request parameters.
+        continuationToken:
+          type:
+          - string
+          - 'null'
+          description: A cursor for use in pagination.
+      additionalProperties: false
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
     PolicyResponseModel:
       required:
       - enabled
@@ -303,6 +259,50 @@ components:
           description: Data for the policy.
       additionalProperties: false
       description: A policy.
+    PolicyUpdateRequestModel:
+      required:
+      - enabled
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Determines if this policy is enabled and enforced.
+        data:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: object
+            additionalProperties: false
+          description: Data for the policy.
+      additionalProperties: false
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
+      additionalProperties: false
   securitySchemes:
     OAuth2_Client_Credentials:
       type: oauth2

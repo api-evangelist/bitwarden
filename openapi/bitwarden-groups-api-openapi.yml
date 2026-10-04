@@ -294,48 +294,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AssociationWithPermissionsRequestModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
-    ErrorResponseModel:
-      required:
-      - message
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: error
-        message:
-          type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
-
-            request parameter will include a dictionary key describing that parameter.'
-      additionalProperties: false
     GroupResponseModelListResponseModel:
       required:
       - data
@@ -358,7 +316,7 @@ components:
           - 'null'
           description: A cursor for use in pagination.
       additionalProperties: false
-    AssociationWithPermissionsResponseModel:
+    AssociationWithPermissionsRequestModel:
       required:
       - id
       - readOnly
@@ -372,6 +330,18 @@ components:
         readOnly:
           type: boolean
           description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    UpdateMemberIdsRequestModel:
+      type: object
+      properties:
+        memberIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The associated member ids that have access to this object.
       additionalProperties: false
     GroupCreateUpdateRequestModel:
       required:
@@ -452,17 +422,47 @@ components:
           example: external_id_123456
       additionalProperties: false
       description: A user group.
-    UpdateMemberIdsRequestModel:
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
       type: object
       properties:
-        memberIds:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
           type:
-          - array
+          - object
           - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The associated member ids that have access to this object.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
       additionalProperties: false
   securitySchemes:
     OAuth2_Client_Credentials:

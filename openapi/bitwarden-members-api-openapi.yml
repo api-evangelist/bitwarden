@@ -356,153 +356,6 @@ components:
             format: uuid
           description: The associated group ids that this object can access.
       additionalProperties: false
-    ErrorResponseModel:
-      required:
-      - message
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: error
-        message:
-          type: string
-          description: A human-readable message providing details about the error.
-          example: The request model is invalid.
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
-
-            request parameter will include a dictionary key describing that parameter.'
-      additionalProperties: false
-    MemberCreateRequestModel:
-      required:
-      - accessAll
-      - email
-      - type
-      type: object
-      properties:
-        email:
-          type: string
-          description: The member's email address.
-          format: email
-          example: jsmith@example.com
-        collections:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
-          description: The associated collections that this member can access.
-        type:
-          allOf:
-          - $ref: '#/components/schemas/OrganizationUserType'
-          description: The member's type (or role) within the organization.
-        accessAll:
-          type: boolean
-          description: 'Determines if this member can access all collections within the organization, or only the associated
-
-            collections. If set to {true}, this option overrides any collection assignments.'
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: External identifier for reference or linking this member to another system, such as a user directory.
-          example: external_id_123456
-      additionalProperties: false
-    MemberResponseModelListResponseModel:
-      required:
-      - data
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MemberResponseModel'
-          description: An array containing the actual response elements, paginated by any request parameters.
-        continuationToken:
-          type:
-          - string
-          - 'null'
-          description: A cursor for use in pagination.
-      additionalProperties: false
-    AssociationWithPermissionsResponseModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
-    MemberUpdateRequestModel:
-      required:
-      - accessAll
-      - type
-      type: object
-      properties:
-        collections:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
-          description: The associated collections that this member can access.
-        type:
-          allOf:
-          - $ref: '#/components/schemas/OrganizationUserType'
-          description: The member's type (or role) within the organization.
-        accessAll:
-          type: boolean
-          description: 'Determines if this member can access all collections within the organization, or only the associated
-
-            collections. If set to {true}, this option overrides any collection assignments.'
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: External identifier for reference or linking this member to another system, such as a user directory.
-          example: external_id_123456
-      additionalProperties: false
-    OrganizationUserType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      type: integer
-      format: int32
-    OrganizationUserStatusType:
-      enum:
-      - 0
-      - 1
-      - 2
-      type: integer
-      format: int32
     MemberResponseModel:
       required:
       - accessAll
@@ -579,6 +432,153 @@ components:
           example: external_id_123456
       additionalProperties: false
       description: An organization member.
+    MemberCreateRequestModel:
+      required:
+      - accessAll
+      - email
+      - type
+      type: object
+      properties:
+        email:
+          type: string
+          description: The member's email address.
+          format: email
+          example: jsmith@example.com
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this member can access.
+        type:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationUserType'
+          description: The member's type (or role) within the organization.
+        accessAll:
+          type: boolean
+          description: 'Determines if this member can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this member to another system, such as a user directory.
+          example: external_id_123456
+      additionalProperties: false
+    AssociationWithPermissionsResponseModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    ErrorResponseModel:
+      required:
+      - message
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: error
+        message:
+          type: string
+          description: A human-readable message providing details about the error.
+          example: The request model is invalid.
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
+
+            request parameter will include a dictionary key describing that parameter.'
+      additionalProperties: false
+    MemberResponseModelListResponseModel:
+      required:
+      - data
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MemberResponseModel'
+          description: An array containing the actual response elements, paginated by any request parameters.
+        continuationToken:
+          type:
+          - string
+          - 'null'
+          description: A cursor for use in pagination.
+      additionalProperties: false
+    MemberUpdateRequestModel:
+      required:
+      - accessAll
+      - type
+      type: object
+      properties:
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this member can access.
+        type:
+          allOf:
+          - $ref: '#/components/schemas/OrganizationUserType'
+          description: The member's type (or role) within the organization.
+        accessAll:
+          type: boolean
+          description: 'Determines if this member can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this member to another system, such as a user directory.
+          example: external_id_123456
+      additionalProperties: false
+    OrganizationUserType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      type: integer
+      format: int32
+    OrganizationUserStatusType:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+      format: int32
   securitySchemes:
     OAuth2_Client_Credentials:
       type: oauth2

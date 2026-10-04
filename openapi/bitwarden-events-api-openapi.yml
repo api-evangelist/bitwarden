@@ -73,6 +73,74 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    DeviceType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+      - 18
+      - 19
+      - 20
+      type: integer
+      format: int32
+    EventType:
+      enum:
+      - 1000
+      - 1001
+      - 1002
+      - 1003
+      - 1004
+      - 1005
+      - 1006
+      - 1007
+      - 1100
+      - 1101
+      - 1102
+      - 1103
+      - 1104
+      - 1105
+      - 1106
+      - 1107
+      - 1108
+      - 1109
+      - 1110
+      - 1111
+      - 1112
+      - 1113
+      - 1114
+      - 1115
+      - 1116
+      - 1300
+      - 1301
+      - 1302
+      - 1400
+      - 1401
+      - 1402
+      - 1500
+      - 1501
+      - 1502
+      - 1503
+      - 1504
+      - 1600
+      - 1601
+      - 1700
+      type: integer
+      format: int32
     EventResponseModel:
       required:
       - date
@@ -147,49 +215,6 @@ components:
           example: 172.16.254.1
       additionalProperties: false
       description: An event log.
-    EventType:
-      enum:
-      - 1000
-      - 1001
-      - 1002
-      - 1003
-      - 1004
-      - 1005
-      - 1006
-      - 1007
-      - 1100
-      - 1101
-      - 1102
-      - 1103
-      - 1104
-      - 1105
-      - 1106
-      - 1107
-      - 1108
-      - 1109
-      - 1110
-      - 1111
-      - 1112
-      - 1113
-      - 1114
-      - 1115
-      - 1116
-      - 1300
-      - 1301
-      - 1302
-      - 1400
-      - 1401
-      - 1402
-      - 1500
-      - 1501
-      - 1502
-      - 1503
-      - 1504
-      - 1600
-      - 1601
-      - 1700
-      type: integer
-      format: int32
     EventResponseModelListResponseModel:
       required:
       - data
@@ -212,31 +237,6 @@ components:
           - 'null'
           description: A cursor for use in pagination.
       additionalProperties: false
-    DeviceType:
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 16
-      - 17
-      - 18
-      - 19
-      - 20
-      type: integer
-      format: int32
   securitySchemes:
     OAuth2_Client_Credentials:
       type: oauth2
