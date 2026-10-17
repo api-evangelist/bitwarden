@@ -294,88 +294,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    GroupResponseModelListResponseModel:
-      required:
-      - data
-      - object
-      type: object
-      properties:
-        object:
-          type: string
-          description: String representing the object's type. Objects of the same type share the same properties.
-          readOnly: true
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupResponseModel'
-          description: An array containing the actual response elements, paginated by any request parameters.
-        continuationToken:
-          type:
-          - string
-          - 'null'
-          description: A cursor for use in pagination.
-      additionalProperties: false
-    AssociationWithPermissionsRequestModel:
-      required:
-      - id
-      - readOnly
-      type: object
-      properties:
-        id:
-          type: string
-          description: The associated object's unique identifier.
-          format: uuid
-          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
-        readOnly:
-          type: boolean
-          description: When true, the read only permission will not allow the user or group to make changes to items.
-      additionalProperties: false
-    UpdateMemberIdsRequestModel:
-      type: object
-      properties:
-        memberIds:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            format: uuid
-          description: The associated member ids that have access to this object.
-      additionalProperties: false
-    GroupCreateUpdateRequestModel:
-      required:
-      - accessAll
-      - name
-      type: object
-      properties:
-        collections:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
-          description: The associated collections that this group can access.
-        name:
-          maxLength: 100
-          minLength: 0
-          type: string
-          description: The name of the group.
-          example: Development Team
-        accessAll:
-          type: boolean
-          description: 'Determines if this group can access all collections within the organization, or only the associated
-
-            collections. If set to {true}, this option overrides any collection assignments.'
-        externalId:
-          maxLength: 300
-          minLength: 0
-          type:
-          - string
-          - 'null'
-          description: External identifier for reference or linking this group to another system, such as a user directory.
-          example: external_id_123456
-      additionalProperties: false
     GroupResponseModel:
       required:
       - accessAll
@@ -422,6 +340,21 @@ components:
           example: external_id_123456
       additionalProperties: false
       description: A user group.
+    AssociationWithPermissionsRequestModel:
+      required:
+      - id
+      - readOnly
+      type: object
+      properties:
+        id:
+          type: string
+          description: The associated object's unique identifier.
+          format: uuid
+          example: bfbc8338-e329-4dc0-b0c9-317c2ebf1a09
+        readOnly:
+          type: boolean
+          description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
     AssociationWithPermissionsResponseModel:
       required:
       - id
@@ -436,6 +369,39 @@ components:
         readOnly:
           type: boolean
           description: When true, the read only permission will not allow the user or group to make changes to items.
+      additionalProperties: false
+    GroupCreateUpdateRequestModel:
+      required:
+      - accessAll
+      - name
+      type: object
+      properties:
+        collections:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/AssociationWithPermissionsRequestModel'
+          description: The associated collections that this group can access.
+        name:
+          maxLength: 100
+          minLength: 0
+          type: string
+          description: The name of the group.
+          example: Development Team
+        accessAll:
+          type: boolean
+          description: 'Determines if this group can access all collections within the organization, or only the associated
+
+            collections. If set to {true}, this option overrides any collection assignments.'
+        externalId:
+          maxLength: 300
+          minLength: 0
+          type:
+          - string
+          - 'null'
+          description: External identifier for reference or linking this group to another system, such as a user directory.
+          example: external_id_123456
       additionalProperties: false
     ErrorResponseModel:
       required:
@@ -463,6 +429,40 @@ components:
           description: 'If multiple errors occurred, they are listed in dictionary. Errors related to a specific
 
             request parameter will include a dictionary key describing that parameter.'
+      additionalProperties: false
+    UpdateMemberIdsRequestModel:
+      type: object
+      properties:
+        memberIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            format: uuid
+          description: The associated member ids that have access to this object.
+      additionalProperties: false
+    GroupResponseModelListResponseModel:
+      required:
+      - data
+      - object
+      type: object
+      properties:
+        object:
+          type: string
+          description: String representing the object's type. Objects of the same type share the same properties.
+          readOnly: true
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupResponseModel'
+          description: An array containing the actual response elements, paginated by any request parameters.
+        continuationToken:
+          type:
+          - string
+          - 'null'
+          description: A cursor for use in pagination.
       additionalProperties: false
   securitySchemes:
     OAuth2_Client_Credentials:
