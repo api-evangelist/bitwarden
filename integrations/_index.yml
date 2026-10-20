@@ -66,3 +66,172 @@
     builder: n8n (built-in node)
   status: not-a-workflow
   arazzo: null
+- slug: bitwarden-homebrew
+  label: Homebrew
+  partner: homebrew
+  partner_name: Homebrew
+  category: official CLI (Homebrew)
+  type: register
+  channel: package-registry
+  evidence: https://formulae.brew.sh/formula/bitwarden-cli
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Homebrew (public package index)
+    spec_file: null
+    packages:
+    - name: bitwarden-cli
+      kind: formula
+      version: 2026.10.0
+      released: null
+      lapsed: false
+      page: https://formulae.brew.sh/formula/bitwarden-cli
+      cli: 'formula desc: Secure and free password manager for all of your devices'
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-scoop
+  label: Scoop
+  partner_name: Scoop
+  category: official CLI (Scoop)
+  type: register
+  channel: package-registry
+  evidence: https://github.com/ScoopInstaller/Main/blob/master/bucket/bitwarden-cli.json
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Scoop (public package index)
+    spec_file: null
+    packages:
+    - name: bitwarden-cli
+      kind: main
+      version: 2026.10.0
+      released: null
+      lapsed: false
+      page: https://github.com/ScoopInstaller/Main/blob/master/bucket/bitwarden-cli.json
+      cli: 'scoop description: The powerful command-line tool (CLI) to write and execute scripts on your Bitwar'
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    - name: bitwarden-secrets-manager-cli
+      kind: main
+      version: 2.1.0
+      released: null
+      lapsed: false
+      page: https://github.com/ScoopInstaller/Main/blob/master/bucket/bitwarden-secrets-manager-cli.json
+      cli: 'scoop description: CLI for Bitwarden Secrets Manager, organizing your vault by creating, deleting, '
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-winget-windows-package-manager
+  label: winget (Windows Package Manager)
+  partner_name: winget (Windows Package Manager)
+  category: official CLI (winget (Windows Package Manager))
+  type: register
+  channel: package-registry
+  evidence: https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/Bitwarden/BWS
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: winget (Windows Package Manager) (public package index)
+    spec_file: null
+    packages:
+    - name: Bitwarden.BWS
+      kind: manifest
+      version: 2.1.0
+      released: null
+      lapsed: false
+      page: https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/Bitwarden/BWS
+      cli: 'winget: A Rust CLI for interacting with the Bitwarden Secrets Manager.'
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-agent-skills-own-github-org
+  label: Agent Skills (own GitHub org)
+  partner_name: Agent Skills (own GitHub org)
+  category: Agent Skills package
+  type: register
+  channel: provider-built
+  evidence: https://github.com/bitwarden/ai-plugins
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: bitwarden
+    matched_by: org-profile-domain:bitwarden.com
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-claude-plugins-dev
+  label: claude-plugins.dev
+  partner_name: claude-plugins.dev
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://claude-plugins.dev/skills/@bitwarden/ai-plugins
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: claude-plugins.dev (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: bitwarden
+    matched_by: org-profile-domain:bitwarden.com
+    sample_skills:
+    - analyzing-git-sessions
+    - angular-modernization
+    - avoiding-false-positives
+    - classifying-review-findings
+    - extracting-session-data
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-skillsmp-skillsmp-com
+  label: SkillsMP (skillsmp.com)
+  partner_name: SkillsMP (skillsmp.com)
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://skillsmp.com/creators/bitwarden/android
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: SkillsMP (skillsmp.com) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: bitwarden
+    matched_by: org-profile-domain:bitwarden.com
+    sample_skills:
+    - claude-skills-refining-android-requirements
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
