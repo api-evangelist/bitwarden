@@ -2,8 +2,15 @@ generated: '2026-10-13'
 method: searched
 checked:
 - https://azuremarketplace.microsoft.com/
+- https://cdn.winget.microsoft.com/cache
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
 - https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/
 - https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/
+- https://pypi.org/pypi
+- https://registry.npmjs.org
 - microsoft-sentinel/integrations/microsoft-sentinel-integration-edges.yml
 - splunk/integrations/splunk-integration-edges.yml
 marketplace_apps: []
@@ -100,6 +107,106 @@ edges:
     builder: n8n (built-in node)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Homebrew
+  partner: homebrew
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official CLI (Homebrew)
+  evidence: https://formulae.brew.sh/formula/bitwarden-cli
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Homebrew (public package index)
+    spec_file: null
+    packages:
+    - name: bitwarden-cli
+      kind: formula
+      version: 2026.10.0
+      released: null
+      lapsed: false
+      page: https://formulae.brew.sh/formula/bitwarden-cli
+      cli: 'formula desc: Secure and free password manager for all of your devices'
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
+- partner_name: Scoop
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official CLI (Scoop)
+  evidence: https://github.com/ScoopInstaller/Main/blob/master/bucket/bitwarden-cli.json
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Scoop (public package index)
+    spec_file: null
+    packages:
+    - name: bitwarden-cli
+      kind: main
+      version: 2026.10.0
+      released: null
+      lapsed: false
+      page: https://github.com/ScoopInstaller/Main/blob/master/bucket/bitwarden-cli.json
+      cli: 'scoop description: The powerful command-line tool (CLI) to write and execute scripts on your Bitwar'
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    - name: bitwarden-secrets-manager-cli
+      kind: main
+      version: 2.1.0
+      released: null
+      lapsed: false
+      page: https://github.com/ScoopInstaller/Main/blob/master/bucket/bitwarden-secrets-manager-cli.json
+      cli: 'scoop description: CLI for Bitwarden Secrets Manager, organizing your vault by creating, deleting, '
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
+- partner_name: winget (Windows Package Manager)
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official CLI (winget (Windows Package Manager))
+  evidence: https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/Bitwarden/BWS
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: winget (Windows Package Manager) (public package index)
+    spec_file: null
+    packages:
+    - name: Bitwarden.BWS
+      kind: manifest
+      version: 2.1.0
+      released: null
+      lapsed: false
+      page: https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/Bitwarden/BWS
+      cli: 'winget: A Rust CLI for interacting with the Bitwarden Secrets Manager.'
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  detected_by: sweep-official-clis.py
+  first_seen: '2026-10-20'
 source:
 - microsoft-sentinel/integrations/microsoft-sentinel-integration-edges.yml
 - splunk/integrations/splunk-integration-edges.yml
