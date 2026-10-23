@@ -43,6 +43,9 @@ checked:
 - https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search/all
 - https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search?SearchMode=Advanced&Standard=140-2&CertificateStatus=Historical&ValidationYear=0
 - ansible/integrations/ansible-integration-edges.yml
+- https://aur.archlinux.org/cgit/aur.git/tree/.SRCINFO
+- https://aur.archlinux.org/packages-meta-ext-v1.json.gz
+- https://aur.archlinux.org/rpc/v5/info
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -626,6 +629,66 @@ edges:
   category: configuration-management content listing (Ansible collection)
   badges:
   - Verified publisher (GitHub domain-verified organization)
+- partner_name: Arch User Repository (AUR)
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official CLI (Arch User Repository (AUR))
+  evidence: https://aur.archlinux.org/packages/bitwarden-cli-bin
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Arch User Repository (AUR) (public package index)
+    spec_file: null
+    packages:
+    - name: bitwarden-cli-bin
+      kind: aur
+      version: 2026.10.0-1
+      released: '2026-10-16'
+      released_field: AUR LastModified
+      out_of_date: false
+      lapsed: false
+      page: https://aur.archlinux.org/packages/bitwarden-cli-bin
+      upstream: https://bitwarden.com
+      cli: 'AUR description: The command line vault'
+      repo_leg: domain:bitwarden.com
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: domain
+    - name: bitwarden-cli-git
+      kind: aur
+      version: 2024.2.2.r100.b37ba717122-1
+      released: '2024-02-25'
+      released_field: AUR LastModified
+      out_of_date: false
+      lapsed: true
+      page: https://aur.archlinux.org/packages/bitwarden-cli-git
+      upstream: https://github.com/bitwarden/clients/tree/master/apps/cli
+      cli: 'AUR description: Bitwarden Command-line Interface'
+      repo_leg: github-org:bitwarden
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: github-org
+    - name: bws
+      kind: aur
+      version: 2.1.0-1
+      released: '2026-10-17'
+      released_field: AUR LastModified
+      out_of_date: false
+      lapsed: false
+      page: https://aur.archlinux.org/packages/bws
+      upstream: https://github.com/bitwarden/sdk-sm
+      cli: 'AUR description: Bitwarden Secrets Manager CLI'
+      repo_leg: github-org:bitwarden
+      publisher_leg: artifact-github-org:bitwarden
+      matched_by: github-org
+    current: true
+    signal_note: 'the provider''s own command-line tool packaged for Arch Linux (community-maintained PKGBUILD whose
+      upstream and source artifact are the provider''s): distribution, not an integration; lapsed = flagged out-of-date
+      or not updated in 24 months'
+    detected_by: sweep-aur-vendor-cli-packages.py
+    detected: '2026-10-23'
+  detected_by: sweep-aur-vendor-cli-packages.py
+  first_seen: '2026-10-23'
 source:
 - microsoft-sentinel/integrations/microsoft-sentinel-integration-edges.yml
 - splunk/integrations/splunk-integration-edges.yml
