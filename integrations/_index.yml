@@ -237,71 +237,6 @@
     status: Active
   status: not-a-workflow
   arazzo: null
-- slug: bitwarden-microsoft-sentinel-own
-  label: Microsoft Sentinel (own)
-  partner: microsoft-sentinel
-  partner_name: Microsoft Sentinel (own)
-  category: Security - Threat Protection
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/Bitwarden
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: bitwarden-splunk-own
-  label: Splunk (own)
-  partner: splunk
-  partner_name: Splunk (own)
-  category: app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://splunkbase.splunk.com/app/6592/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: bitwarden-opentofu-opentofu-registry
-  label: OpenTofu (opentofu-registry)
-  partner: opentofu
-  partner_name: OpenTofu (opentofu-registry)
-  category: infrastructure-as-code provider registry listing
-  type: marketplace
-  marketplace: opentofu-registry
-  channel: partner-built
-  evidence: https://search.opentofu.org/provider/bitwarden/bitwarden-secrets
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: bitwarden-terraform-terraform-registry
-  label: Terraform (terraform-registry)
-  partner: terraform
-  partner_name: Terraform (terraform-registry)
-  category: infrastructure-as-code provider registry listing
-  type: marketplace
-  marketplace: terraform-registry
-  channel: partner-built
-  evidence: https://registry.terraform.io/providers/bitwarden/bitwarden-secrets
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: bitwarden-digital-ocean-own
-  label: Digital Ocean (own)
-  partner: digital-ocean
-  partner_name: Digital Ocean (own)
-  category: Security
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://marketplace.digitalocean.com/apps/bitwarden
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: bitwarden-mozilla-firefox-add-ons-amo
   label: Mozilla Firefox Add-ons (AMO)
   partner_name: Mozilla Firefox Add-ons (AMO)
@@ -465,5 +400,83 @@
       validated: '2026-08-27'
     vendor_country: USA
     identity_source: register website (CMVP certificate Vendor panel)
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-microsoft-sentinel-own
+  label: Microsoft Sentinel (own)
+  partner: microsoft-sentinel
+  partner_name: Microsoft Sentinel (own)
+  category: Security - Threat Protection
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://github.com/Azure/Azure-Sentinel/tree/master/Solutions/Bitwarden
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-splunk-own
+  label: Splunk (own)
+  partner: splunk
+  partner_name: Splunk (own)
+  category: app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://splunkbase.splunk.com/app/6592/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-opentofu-opentofu-registry
+  label: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_name: OpenTofu (opentofu-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: opentofu-registry
+  channel: partner-built
+  evidence: https://search.opentofu.org/provider/bitwarden/bitwarden-secrets
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-terraform-terraform-registry
+  label: Terraform (terraform-registry)
+  partner: terraform
+  partner_name: Terraform (terraform-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: terraform-registry
+  channel: partner-built
+  evidence: https://registry.terraform.io/providers/bitwarden/bitwarden-secrets
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-digital-ocean-own
+  label: Digital Ocean (own)
+  partner: digital-ocean
+  partner_name: Digital Ocean (own)
+  category: Security
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.digitalocean.com/apps/bitwarden
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: bitwarden-ansible-ansible-galaxy
+  label: Ansible (ansible-galaxy)
+  partner: ansible
+  partner_name: Ansible (ansible-galaxy)
+  category: configuration-management content listing (Ansible collection)
+  type: marketplace
+  marketplace: ansible-galaxy
+  channel: partner-built
+  evidence: https://galaxy.ansible.com/ui/repo/published/bitwarden/secrets/
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
